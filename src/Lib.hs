@@ -8,18 +8,17 @@ module Lib
 import Data.ByteString (ByteString, toStrict)
 import Network.HTTP.Simple (getResponseBody, httpBS, parseRequest, setRequestBodyJSON)
 import Types
-import Data.Functor.Identity (Identity)
 import Data.Aeson (eitherDecodeStrict, encode)
-import Barbies (bmempty, bpure)
-import Network.HTTP.Client.Conduit (Request(method), requestBody)
+import Barbies (bpure)
+import Network.HTTP.Client.Conduit (Request(method))
 
 
 someFunc :: IO ()
 someFunc = putStrLn "someFunc"
 
 -- >>> simpleHttpGet
--- Right (State {stateOn = Identity True, stateBri = Identity 255, stateTransition = Identity 7, statePs = Identity (-1), statePl = Identity (-1), stateLor = Identity 0, stateMainseg = Identity 1})
-simpleHttpGet :: IO (Either String (State Identity))
+-- Right (State {stateOn = True, stateBri = 255, stateTransition = 7, statePs = -1, statePl = -1, stateLor = 0, stateMainseg = 1})
+simpleHttpGet :: IO (Either String StateComplete)
 simpleHttpGet = do
     response <- httpBS =<< parseRequest "http://192.168.178.34/json/state"
     pure (eitherDecodeStrict $ getResponseBody response)
@@ -28,8 +27,8 @@ simpleHttpGet = do
 -- ("{\"on\":true}","{\"success\":true}")
 simpleHttpSet :: IO (ByteString, ByteString)
 simpleHttpSet =
-    let patch0 :: State Maybe = (bpure Nothing) { stateBri = Nothing }
-        patch1 :: State Maybe = (bpure Nothing) { stateOn = Just True }
+    let patch0 :: StatePatch = (bpure Nothing :: StatePatch) { stateBri = Nothing }
+        patch1 :: StatePatch = (bpure Nothing :: StatePatch) { stateOn = Just True }
         patch = patch0 <> patch1
         body = encode patch
     in do
