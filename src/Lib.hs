@@ -9,7 +9,6 @@ import Data.ByteString (ByteString, toStrict)
 import Network.HTTP.Simple (getResponseBody, httpBS, parseRequest, setRequestBodyJSON)
 import Types
 import Data.Aeson (eitherDecodeStrict, encode)
-import Barbies (bpure)
 import Network.HTTP.Client.Conduit (Request(method))
 
 
@@ -27,8 +26,8 @@ simpleHttpGet = do
 -- ("{\"on\":true}","{\"success\":true}")
 simpleHttpSet :: IO (ByteString, ByteString)
 simpleHttpSet =
-    let patch0 :: StatePatch = (bpure Nothing :: StatePatch) { stateBri = Nothing }
-        patch1 :: StatePatch = (bpure Nothing :: StatePatch) { stateOn = Just True }
+    let patch0 :: StatePatch = (mempty :: StatePatch) { stateBri = Nothing }
+        patch1 :: StatePatch = (mempty :: StatePatch) { stateOn = Just True }
         patch = patch0 <> patch1
         body = encode patch
     in do

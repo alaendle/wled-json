@@ -8,7 +8,7 @@
 
 module Types (State (..), StateComplete, StatePatch) where
 
-import Control.Applicative (Alternative ((<|>)))
+import Control.Applicative (Alternative ((<|>)), empty)
 import qualified Data.Aeson as A
 import Data.Char (toLower)
 import Data.Functor.Barbie
@@ -47,6 +47,9 @@ deriving via CustomJSON '[OmitNothingFields, FieldLabelModifier '[StripPrefix "s
 
 instance (Alternative f) => Semigroup (State Covered f) where
   (<>) = bzipWith (<|>)
+
+instance (Alternative f) => Monoid (State Covered f) where
+  mempty = bpure empty
 
 data ToLower
 instance StringModifier ToLower where
