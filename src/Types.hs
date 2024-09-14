@@ -1,16 +1,17 @@
-{-# LANGUAGE StandaloneDeriving #-}
+{-# LANGUAGE DataKinds #-}
 {-# LANGUAGE DeriveAnyClass #-}
 {-# LANGUAGE DeriveGeneric #-}
-{-# LANGUAGE UndecidableInstances #-}
 {-# LANGUAGE DerivingVia #-}
-{-# LANGUAGE DataKinds #-}
+{-# LANGUAGE StandaloneDeriving #-}
+{-# LANGUAGE UndecidableInstances #-}
 
-module Types (State(..)) where
-import Data.Functor.Barbie
-import GHC.Generics (Generic)
+module Types (State (..)) where
+
+import Control.Applicative (Alternative ((<|>)))
 import qualified Data.Aeson as A
-import Deriving.Aeson
 import Data.Char (toLower)
+import Data.Functor.Barbie
+import Deriving.Aeson
 
 data State f = State
     { stateOn :: f Bool
@@ -29,6 +30,9 @@ deriving instance (AllBF Show f State) => Show (State f)
 deriving instance (AllBF Eq f State) => Eq (State f)
 deriving via CustomJSON '[OmitNothingFields, FieldLabelModifier '[StripPrefix "state", ToLower]] (State f) instance (AllBF A.FromJSON f State) => A.FromJSON (State f)
 deriving via CustomJSON '[OmitNothingFields, FieldLabelModifier '[StripPrefix "state", ToLower]] (State f) instance (AllBF A.ToJSON f State) => A.ToJSON (State f)
+
+instance (Alternative f) => Semigroup (State f) where
+  (<>) = bzipWith (<|>)
 
 data ToLower
 instance StringModifier ToLower where

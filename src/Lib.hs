@@ -18,17 +18,19 @@ someFunc :: IO ()
 someFunc = putStrLn "someFunc"
 
 -- >>> simpleHttpGet
--- Right (State {stateOn = Identity True, stateBri = Identity 255, stateTransition = Identity 7, statePs = Identity 1, statePl = Identity (-1), stateLor = Identity 0, stateMainseg = Identity 1})
+-- Right (State {stateOn = Identity True, stateBri = Identity 255, stateTransition = Identity 7, statePs = Identity (-1), statePl = Identity (-1), stateLor = Identity 0, stateMainseg = Identity 1})
 simpleHttpGet :: IO (Either String (State Identity))
 simpleHttpGet = do
     response <- httpBS =<< parseRequest "http://192.168.178.34/json/state"
     pure (eitherDecodeStrict $ getResponseBody response)
 
 -- >>> simpleHttpSet
--- ("{\"bri\":1}","{\"success\":true}")
+-- ("{\"on\":true}","{\"success\":true}")
 simpleHttpSet :: IO (ByteString, ByteString)
 simpleHttpSet =
-    let patch :: State Maybe = (bpure Nothing) { stateBri = Just 1 }
+    let patch0 :: State Maybe = (bpure Nothing) { stateBri = Nothing }
+        patch1 :: State Maybe = (bpure Nothing) { stateOn = Just True }
+        patch = patch0 <> patch1
         body = encode patch
     in do
       req <- parseRequest "http://192.168.178.34/json/state"
