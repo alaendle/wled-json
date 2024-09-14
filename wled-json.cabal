@@ -26,6 +26,7 @@ source-repository head
 library
   exposed-modules:
       Lib
+      Types
   other-modules:
       Paths_wled_json
   autogen-modules:
@@ -34,7 +35,12 @@ library
       src
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
   build-depends:
-      base >=4.7 && <5
+      aeson
+    , barbies
+    , base >=4.7 && <5
+    , bytestring
+    , deriving-aeson
+    , http-conduit
   default-language: Haskell2010
 
 executable wled-json-exe
@@ -47,7 +53,12 @@ executable wled-json-exe
       app
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      base >=4.7 && <5
+      aeson
+    , barbies
+    , base >=4.7 && <5
+    , bytestring
+    , deriving-aeson
+    , http-conduit
     , wled-json
   default-language: Haskell2010
 
@@ -62,6 +73,11 @@ test-suite wled-json-test
       test
   ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      base >=4.7 && <5
+      aeson
+    , barbies
+    , base >=4.7 && <5
+    , bytestring
+    , deriving-aeson
+    , http-conduit
     , wled-json
   default-language: Haskell2010

@@ -21,6 +21,11 @@ description:         Please see the README on GitHub at <https://github.com/alae
 
 dependencies:
 - base >= 4.7 && < 5
+- barbies
+- aeson
+- bytestring
+- deriving-aeson
+- http-conduit
 
 ghc-options:
 - -Wall
