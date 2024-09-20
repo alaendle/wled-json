@@ -17,8 +17,8 @@ public class State<F> {
 }
 
 public static class StateExtensions {
-    public static State<Option> Combine(this State<Option> state1, State<Option> state2) {
-        return new State<Option> {
+    public static State<F> Combine<F>(this State<F> state1, State<F> state2) where F : SemigroupK<F> {
+        return new State<F> {
             On = state1.On.Combine(state2.On),
             Bri = state1.Bri.Combine(state2.Bri),
             Transition = state1.Transition.Combine(state2.Transition),
