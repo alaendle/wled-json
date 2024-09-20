@@ -1,11 +1,14 @@
-class State {
-    public bool On { get; set; }
-    public int Bri { get; set; }
-    public int Transition { get; set; }
-    public int Ps { get; set; }
-    public int Pl { get; set; }
-    public int Lor { get; set; }
-    public int Mainseg { get; set; }
+using LanguageExt;
+using LanguageExt.Traits;
+
+public class State<F> {
+    public required K<F, bool> On { get; set; }
+    public required K<F, int> Bri { get; set; }
+    public required K<F, int> Transition { get; set; }
+    public required K<F, int> Ps { get; set; }
+    public required K<F, int> Pl { get; set; }
+    public required K<F, int> Lor { get; set; }
+    public required K<F, int> Mainseg { get; set; }
 
     public override string ToString()
     {
@@ -13,32 +16,16 @@ class State {
     }
 }
 
-class StatePatch {
-    public Nullable<bool> On { get; set; }
-    public Nullable<int> Bri { get; set; }
-    public Nullable<int> Transition { get; set; }
-    public Nullable<int> Ps { get; set; }
-    public Nullable<int> Pl { get; set; }
-    public Nullable<int> Lor { get; set; }
-    public Nullable<int> Mainseg { get; set; }
-
-    internal static StatePatch Merge(StatePatch patch0, StatePatch patch1)
-    {
-        var res = new StatePatch
-        {
-            On = patch0.On.HasValue ? patch0.On : patch1.On,
-            Bri= patch0.Bri.HasValue ? patch0.Bri : patch1.Bri,
-            Transition= patch0.Transition.HasValue ? patch0.Transition : patch1.Transition,
-            Ps= patch0.Ps.HasValue ? patch0.Ps : patch1.Ps,
-            Pl= patch0.Pl.HasValue ? patch0.Pl : patch1.Pl,
-            Lor= patch0.Lor.HasValue ? patch0.Lor : patch1.Lor,
-            Mainseg= patch0.Mainseg.HasValue ? patch0.Mainseg : patch1.Mainseg
+public static class StateExtensions {
+    public static State<Option> Combine(this State<Option> state1, State<Option> state2) {
+        return new State<Option> {
+            On = state1.On.Combine(state2.On),
+            Bri = state1.Bri.Combine(state2.Bri),
+            Transition = state1.Transition.Combine(state2.Transition),
+            Ps = state1.Ps.Combine(state2.Ps),
+            Pl = state1.Pl.Combine(state2.Pl),
+            Lor = state1.Lor.Combine(state2.Lor),
+            Mainseg = state1.Mainseg.Combine(state2.Mainseg)
         };
-        return res;
-    }
-
-    public override string ToString()
-    {
-        return "State: On:" + On + " Bri:" + Bri + " Transition:"+ Transition + " Ps:"+ Ps + " Pl:"+ Pl + " Lor:"+ Lor + " Mainseg:" + Mainseg;
     }
 }
