@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "wled-json", "wled-json.csproj", "{63C01FF5-29D3-4AF8-972C-FEE0AE418342}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "wled-json", "wled-json\wled-json.csproj", "{63C01FF5-29D3-4AF8-972C-FEE0AE418342}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wled-json.test", "wled-json.test\wled-json.test.csproj", "{E4737BDE-D3F7-4AA4-81F1-50BCD47A30B3}"
 EndProject

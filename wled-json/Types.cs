@@ -1,3 +1,5 @@
+namespace wled_json;
+
 using LanguageExt;
 using LanguageExt.Traits;
 
@@ -13,6 +15,38 @@ public class State<F> {
     public override string ToString()
     {
         return "State: On:" + On + " Bri:" + Bri + " Transition:"+ Transition + " Ps:"+ Ps + " Pl:"+ Pl + " Lor:"+ Lor + " Mainseg:" + Mainseg;
+    }
+
+    public override bool Equals(object? obj)
+    {
+        return obj is State<F> state &&
+               On.Equals(state.On) &&
+               Bri.Equals(state.Bri) &&
+               Transition.Equals(state.Transition) &&
+               Ps.Equals(state.Ps) &&
+               Pl.Equals(state.Pl) &&
+               Lor.Equals(state.Lor) &&
+               Mainseg.Equals(state.Mainseg);
+    }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(On, Bri, Transition, Ps, Pl, Lor, Mainseg);
+    }
+}
+
+public static class State {
+        public static State<F> Empty<F>() where F : MonoidK<F> {
+        return new State<F> {
+            On = F.Empty<bool>(),
+            Bri = F.Empty<int>(),
+            Transition = F.Empty<int>(),
+            Ps = F.Empty<int>(),
+            Pl = F.Empty<int>(),
+            Lor = F.Empty<int>(),
+            Mainseg = F.Empty<int>()
+        };
+
     }
 }
 
