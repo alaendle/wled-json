@@ -13,7 +13,7 @@ public class OptionJsonConverter : JsonConverter
 
     private ReflectionTypeData GetForOptionType(Type optionType)
     {
-        return cachedReflection.GetOrAdd(optionType.GetGenericArguments().First(),
+        return cachedReflection.GetOrAdd(optionType.GetGenericArguments().Last(),
             t => new ReflectionTypeData(optionType));
     }
 

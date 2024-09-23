@@ -12,12 +12,26 @@ public class LampStateTest
     [Fact]
     public void Test1()
     {
-        var patch = new wled_json.State<Option> { On = Option<bool>.Some(true), Bri = Option<int>.None, Transition = Option<int>.None, Ps = Option<int>.None, Pl = Option<int>.None, Lor = Option<int>.None, Mainseg = Option<int>.None };
-        var jsonPatch = JsonConvert.SerializeObject(patch, new JsonSerializerSettings { DefaultValueHandling = DefaultValueHandling.Ignore, Converters = [new wled_json.OptionJsonConverter()] });
+        var patch = new wled_json.State<Option> { On = Option<bool>.Some(false), Bri = Option<int>.None, Transition = Option<int>.Some(193), Ps = Option<int>.Some(209), Pl = Option<int>.None, Lor = Option<int>.Some(254), Mainseg = Option<int>.Some(5) };
+        var jsonPatch = JsonConvert.SerializeObject(patch, new JsonSerializerSettings { Converters = [new wled_json.OptionJsonConverter()] });
         Console.WriteLine(jsonPatch);
 
-        var patch_ = JsonConvert.DeserializeObject<wled_json.State<Option>>(jsonPatch, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore, Converters = [new wled_json.OptionJsonConverter()] });
+        var patch_ = wled_json.State.Empty<Option>();
+        JsonConvert.PopulateObject(jsonPatch, patch_, new JsonSerializerSettings { Converters = [new wled_json.OptionJsonConverter() ] });
         Console.WriteLine(patch_);
+        Console.WriteLine(patch);
+
+        Console.WriteLine(patch.Equals(patch_));
+    }
+    
+    
+    [Property(Arbitrary = [typeof(OptionalBoolGenerator), typeof(OptionalIntGenerator)])]
+    bool TestSerializationRoundTrip(wled_json.State<Option> x)
+    {
+        var json = JsonConvert.SerializeObject(x, new JsonSerializerSettings { Converters = [new wled_json.OptionJsonConverter()] });
+        var x_ = wled_json.State.Empty<Option>();
+        JsonConvert.PopulateObject(json, x_, new JsonSerializerSettings { Converters = [new wled_json.OptionJsonConverter()] });
+        return x.Equals(x_);
     }
 
     [Property(Arbitrary = [typeof(OptionalBoolGenerator), typeof(OptionalIntGenerator)])]
