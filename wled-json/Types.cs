@@ -33,6 +33,41 @@ public class State<F> {
     {
         return HashCode.Combine(On, Bri, Transition, Ps, Pl, Lor, Mainseg);
     }
+
+    public bool ShouldSerializeOn()
+    {
+        return !this.On.Equals(Option<bool>.None);
+    }
+
+    public bool ShouldSerializeBri()
+    {
+        return !this.Bri.Equals(Option<int>.None);
+    }
+
+    public bool ShouldSerializeTransition()
+    {
+        return !this.Transition.Equals(Option<int>.None);
+    }
+
+    public bool ShouldSerializePs()
+    {
+        return !this.Ps.Equals(Option<int>.None);
+    }
+
+    public bool ShouldSerializePl()
+    {
+        return !this.Pl.Equals(Option<int>.None);
+    }
+
+    public bool ShouldSerializeLor()
+    {
+        return !this.Lor.Equals(Option<int>.None);
+    }
+
+    public bool ShouldSerializeMainseg()
+    {
+        return !this.Mainseg.Equals(Option<int>.None);
+    }
 }
 
 public static class State {

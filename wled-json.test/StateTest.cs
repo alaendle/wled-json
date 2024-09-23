@@ -5,13 +5,19 @@ using FsCheck.Xunit;
 using LanguageExt;
 using LanguageExt.Traits;
 using FsCheck;
+using Newtonsoft.Json;
 
 public class LampStateTest
 {
     [Fact]
     public void Test1()
     {
-        Console.WriteLine("Hello World!");
+        var patch = new wled_json.State<Option> { On = Option<bool>.Some(true), Bri = Option<int>.None, Transition = Option<int>.None, Ps = Option<int>.None, Pl = Option<int>.None, Lor = Option<int>.None, Mainseg = Option<int>.None };
+        var jsonPatch = JsonConvert.SerializeObject(patch, new JsonSerializerSettings { DefaultValueHandling = DefaultValueHandling.Ignore, Converters = [new wled_json.OptionJsonConverter()] });
+        Console.WriteLine(jsonPatch);
+
+        var patch_ = JsonConvert.DeserializeObject<wled_json.State<Option>>(jsonPatch, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore, Converters = [new wled_json.OptionJsonConverter()] });
+        Console.WriteLine(patch_);
     }
 
     [Property(Arbitrary = [typeof(OptionalBoolGenerator), typeof(OptionalIntGenerator)])]
