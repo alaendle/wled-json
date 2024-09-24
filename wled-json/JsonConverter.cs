@@ -5,6 +5,7 @@ using System.Reflection;
 using LanguageExt;
 using LanguageExt.Traits;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 public class OptionJsonConverter : JsonConverter
 {
@@ -97,5 +98,18 @@ public class IdentityJsonConverter : JsonConverter
         var identityType = typeof(Identity<>).MakeGenericType(result.GetType());
         var ctor = identityType.GetMethod(nameof(Identity<object>.Pure), BindingFlags.Static | BindingFlags.Public);
         return ctor.Invoke(null, new[] { result });
+    }
+}
+
+public class ShouldSerializeContractResolver : DefaultContractResolver
+{
+    public new static readonly ShouldSerializeContractResolver Instance = new ShouldSerializeContractResolver();
+
+    protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
+    {
+        JsonProperty property = base.CreateProperty(member, memberSerialization);
+
+        property.ShouldSerialize = instance => !instance.Equals(Option<bool>.None) && !instance.Equals(Option<int>.None);
+        return property;
     }
 }

@@ -16,7 +16,7 @@ public class LampStateTest(ITestOutputHelper output)
     public void Test1()
     {
         var patch = new wled_json.State<Option> { On = Option<bool>.Some(false), Bri = Option<int>.None, Transition = Option<int>.Some(193), Ps = Option<int>.Some(209), Pl = Option<int>.None, Lor = Option<int>.Some(254), Mainseg = Option<int>.Some(5) };
-        var jsonPatch = JsonConvert.SerializeObject(patch, new JsonSerializerSettings { Converters = [new wled_json.OptionJsonConverter()] });
+        var jsonPatch = JsonConvert.SerializeObject(patch, new JsonSerializerSettings { Converters = [new wled_json.OptionJsonConverter()], ContractResolver = ShouldSerializeContractResolver.Instance });
         output.WriteLine(jsonPatch);
 
         var patch_ = wled_json.State.Empty<Option>();
@@ -26,12 +26,17 @@ public class LampStateTest(ITestOutputHelper output)
 
         output.WriteLine(patch.Equals(patch_).ToString());
     }
+
+    [Fact]
+    public void TestRequiredAttribute() {
+        Console.WriteLine(typeof(wled_json.State<int>).GetConstructor(Array.Empty<Type>()).Invoke(Array.Empty<object>()));
+    }
     
     
     [Property(Arbitrary = [typeof(OptionalBoolGenerator), typeof(OptionalIntGenerator)])]
     bool TestSerializationRoundTripForOption(wled_json.State<Option> x)
     {
-        var json = JsonConvert.SerializeObject(x, new JsonSerializerSettings { Converters = [new wled_json.OptionJsonConverter()] });
+        var json = JsonConvert.SerializeObject(x, new JsonSerializerSettings { Converters = [new wled_json.OptionJsonConverter()], ContractResolver = ShouldSerializeContractResolver.Instance });
         var x_ = wled_json.State.Empty<Option>();
         JsonConvert.PopulateObject(json, x_, new JsonSerializerSettings { Converters = [new wled_json.OptionJsonConverter()] });
         return x.Equals(x_);
