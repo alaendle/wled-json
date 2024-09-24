@@ -70,3 +70,32 @@ public class OptionJsonConverter : JsonConverter
         public MethodInfo SomeMethod { get; }
     }
 }
+
+public class IdentityJsonConverter : JsonConverter
+{
+    public override bool CanConvert(Type objectType)
+    {
+        return objectType.IsGenericType && (
+            objectType.GetGenericTypeDefinition().IsAssignableFrom(typeof(Identity<>)) || 
+            objectType.GetGenericTypeDefinition().IsAssignableFrom(typeof(K<,>)));
+    }
+
+    public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+    {
+        var identityType = typeof(Identity<>).MakeGenericType(value.GetType().GetGenericArguments().Last());
+        var valueProp = identityType.GetProperty(nameof(Identity<object>.Value), BindingFlags.Instance | BindingFlags.Public);
+
+        var x = valueProp.GetValue(value);
+
+        serializer.Serialize(writer, x);
+    }
+
+    public override object ReadJson(JsonReader reader, Type objectType, object existingValue,
+        JsonSerializer serializer)
+    {
+        object result = serializer.Deserialize(reader, objectType.GetGenericArguments().Last());
+        var identityType = typeof(Identity<>).MakeGenericType(result.GetType());
+        var ctor = identityType.GetMethod(nameof(Identity<object>.Pure), BindingFlags.Static | BindingFlags.Public);
+        return ctor.Invoke(null, new[] { result });
+    }
+}
