@@ -40,7 +40,9 @@ packages:
 #   commit: e7b331f14bcffb8367cd58fbfc8b40ec7642100a
 #
 extra-deps:
+# we want newer aeson >= 2.2 to get omit nothing fields
 - aeson-2.2.3.0
+# dependencies of aeson (direct & indirect)
 - character-ps-0.1
 - hashable-1.5.0.0
 - scientific-0.3.8.0
@@ -50,6 +52,11 @@ extra-deps:
 - uuid-types-1.0.6
 - witherable-0.5
 - attoparsec-aeson-2.2.2.0
+# want to try this for FRP demo
+- rhine-1.4.0.1
+# dependencies of rhine (direct & indirect)
+- automaton-1.4
+- monad-schedule-0.2.0.1
 
 # Override default flag values for project packages and extra-deps
 # flags: {}

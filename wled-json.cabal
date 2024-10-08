@@ -33,7 +33,7 @@ library
       Paths_wled_json
   hs-source-dirs:
       src
-  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -Wunused-packages
   build-depends:
       aeson
     , barbies
@@ -51,14 +51,10 @@ executable wled-json-exe
       Paths_wled_json
   hs-source-dirs:
       app
-  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -Wunused-packages -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      aeson
-    , barbies
-    , base >=4.7 && <5
-    , bytestring
-    , deriving-aeson
-    , http-conduit
+      base >=4.7 && <5
+    , rhine
     , wled-json
   default-language: Haskell2010
 
@@ -71,13 +67,8 @@ test-suite wled-json-test
       Paths_wled_json
   hs-source-dirs:
       test
-  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -Wunused-packages -threaded -rtsopts -with-rtsopts=-N
   build-depends:
-      aeson
-    , barbies
-    , base >=4.7 && <5
-    , bytestring
-    , deriving-aeson
-    , http-conduit
+      base >=4.7 && <5
     , wled-json
   default-language: Haskell2010

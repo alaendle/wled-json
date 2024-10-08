@@ -74,6 +74,27 @@ packages:
       size: 404
   original:
     hackage: attoparsec-aeson-2.2.2.0
+- completed:
+    hackage: rhine-1.4.0.1@sha256:ec0e017cfd6a1fafbe81adc96202da1a93f9d35e84463e58d8d65213927d5978,5389
+    pantry-tree:
+      sha256: e899bc35e2c928c21196d782822537b5bb75ba5fb3028e128585545aad379c8e
+      size: 4118
+  original:
+    hackage: rhine-1.4.0.1
+- completed:
+    hackage: automaton-1.4@sha256:45a1b08d0f154c5ecdf4bc0eab165359ec6524e079a0c604ef8a0798fcf90ba3,2361
+    pantry-tree:
+      sha256: e12dbafa8388db550e6cc136477fa28658963b815c05a1a6ab94c80bb129cbf6
+      size: 1778
+  original:
+    hackage: automaton-1.4
+- completed:
+    hackage: monad-schedule-0.2.0.1@sha256:79e9323d4b02b16f170b0ef98bdbadfbdb93b64969f752827ba361f3d527ecdc,2353
+    pantry-tree:
+      sha256: 71653978383a7dd28db06345852aac50e4be465f8a41d969615b4d15d5dcad06
+      size: 976
+  original:
+    hackage: monad-schedule-0.2.0.1
 snapshots:
 - completed:
     sha256: c6274f9587d6bf40b6aaa7d1092684c37a2d8bb1e0df999ae0e2b755db15682d
