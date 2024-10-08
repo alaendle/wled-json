@@ -2,36 +2,32 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 module Lib
-    ( someFunc
+    ( getLampState,
+      setLampState
     ) where
 
 import Data.ByteString (ByteString, toStrict)
 import Network.HTTP.Simple (getResponseBody, httpBS, parseRequest, setRequestBodyJSON)
 import Types
 import Data.Aeson (eitherDecodeStrict, encode)
-import Network.HTTP.Client.Conduit (Request(method))
+import Network.HTTP.Client.Conduit (Request(method), path)
 
 
-someFunc :: IO ()
-someFunc = putStrLn "someFunc"
+-- >>> getLampState "http://192.168.178.34"
+-- Right (State {stateOn = True, stateBri = 10, stateTransition = 7, statePs = -1, statePl = -1, stateLor = 0, stateMainseg = 0})
+getLampState :: String -> IO (Either String StateComplete)
+getLampState wledUrl = do
+    req <- parseRequest wledUrl
+    res <- httpBS req { path = "json/state" } 
+    pure (eitherDecodeStrict $ getResponseBody res)
 
--- >>> simpleHttpGet
--- Right (State {stateOn = True, stateBri = 255, stateTransition = 7, statePs = -1, statePl = -1, stateLor = 0, stateMainseg = 1})
-simpleHttpGet :: IO (Either String StateComplete)
-simpleHttpGet = do
-    response <- httpBS =<< parseRequest "http://192.168.178.34/json/state"
-    pure (eitherDecodeStrict $ getResponseBody response)
-
--- >>> simpleHttpSet
--- ("{\"on\":true}","{\"success\":true}")
-simpleHttpSet :: IO (ByteString, ByteString)
-simpleHttpSet =
-    let patch0 :: StatePatch = (mempty :: StatePatch) { stateBri = Nothing }
-        patch1 :: StatePatch = (mempty :: StatePatch) { stateOn = Just True }
-        patch = patch0 <> patch1
-        body = encode patch
+-- >>> setLampState "http://192.168.178.34" $ (mempty :: StatePatch) { stateBri = Just 10 } <> (mempty :: StatePatch) { stateOn = Nothing }
+-- ("{\"bri\":10}","{\"success\":true}")
+setLampState :: String -> StatePatch -> IO (ByteString, ByteString)
+setLampState wledUrl patch =
+    let body = encode patch
     in do
-      req <- parseRequest "http://192.168.178.34/json/state"
-      res <- httpBS $ setRequestBodyJSON patch $ req { method = "POST" }
+      req <- parseRequest wledUrl
+      res <- httpBS $ setRequestBodyJSON patch req { method = "POST", path = "json/state" }
       pure (toStrict body, getResponseBody res)
 
