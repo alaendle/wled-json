@@ -3,10 +3,80 @@
 # For more information, please see the documentation at:
 #   https://docs.haskellstack.org/en/stable/lock_files
 
-packages: []
+packages:
+- completed:
+    hackage: aeson-2.2.3.0@sha256:011fa2d67d7a821aa5ec5c825adc919bb067d42dde8fac7c6e5db23239a58866,6589
+    pantry-tree:
+      sha256: e928995a568c7437575160844341219a5b057fc8e27f51162da8595692e2500c
+      size: 83371
+  original:
+    hackage: aeson-2.2.3.0
+- completed:
+    hackage: character-ps-0.1@sha256:b38ed1c07ae49e7461e44ca1d00c9ca24d1dcb008424ccd919916f92fd48d9fe,1315
+    pantry-tree:
+      sha256: 22d98d7c8b4c2bb9cb7fe429adf52bfed0c18269eac146b1e591c5941e26161a
+      size: 382
+  original:
+    hackage: character-ps-0.1
+- completed:
+    hackage: hashable-1.5.0.0@sha256:fc68b07d957ade5a0a0beadd560a8d093ceac30b2f35c85eed3bcf7889a25975,5833
+    pantry-tree:
+      sha256: 603df10b52dd1130def3afeb518395eb0e40de2b6c33b649561fea24941e9c14
+      size: 1578
+  original:
+    hackage: hashable-1.5.0.0
+- completed:
+    hackage: scientific-0.3.8.0@sha256:2148e2e6ab1f1fd2ecee25067e0ee60da886be89736e8a54d49556407d7113ce,4380
+    pantry-tree:
+      sha256: c571c6a44ac7836bb5f12a67e8335752cf15be092fe45f1c86c6157c2f2312b6
+      size: 657
+  original:
+    hackage: scientific-0.3.8.0
+- completed:
+    hackage: strict-0.5.1@sha256:58c373b7c7748cbb4a5a6c8c15073f99a1c10a9a9bb6894ac33f43a5cdb901f2,3557
+    pantry-tree:
+      sha256: 58e97bedb76e8678bf9851677362a8fe567b3d8021e8cd1e54af2ca99c23632f
+      size: 654
+  original:
+    hackage: strict-0.5.1
+- completed:
+    hackage: primitive-0.9.0.0@sha256:2e08c5409e3559c7f1669ef50e9a0d9a397e68ecf51110d5e2cedf05cdd7d93c,3171
+    pantry-tree:
+      sha256: a862f3979a8ed2ae047287de3c7376f749ee97d5a27c9c55a4c6d94ffb7d1601
+      size: 1793
+  original:
+    hackage: primitive-0.9.0.0
+- completed:
+    hackage: time-compat-1.9.7@sha256:f0bff15af6faaeff36b679e6b810fa71534b2f85a91bf98d7541dac6a469b20f,4486
+    pantry-tree:
+      sha256: 0b3cf3a315e83eeca3f54a6f24e86d0655950aebd35779d8fbf1b4e81637a7a5
+      size: 4111
+  original:
+    hackage: time-compat-1.9.7
+- completed:
+    hackage: uuid-types-1.0.6@sha256:595644500d36908be85cd02fb446c411555ecc5c59b7ce33d1205cfc9ceb55a6,2604
+    pantry-tree:
+      sha256: 8ddb70a1c62025f4cb9e5d0b1063631e3b0f709a70b320e7a30696ee4398559c
+      size: 480
+  original:
+    hackage: uuid-types-1.0.6
+- completed:
+    hackage: witherable-0.5@sha256:85bab588ebca37996fc3171b9d8b2e065eb0536c9f44224bcf037c0849a881de,2343
+    pantry-tree:
+      sha256: ca0cdc66ffc5213fb3b430a3a6797f9e24f1bd02abd34144c0c18d6c51a4710e
+      size: 321
+  original:
+    hackage: witherable-0.5
+- completed:
+    hackage: attoparsec-aeson-2.2.2.0@sha256:02dc3cc4d217a364471da7ce0f47be39e5b1449e7768134e5f2926d87a21448d,1590
+    pantry-tree:
+      sha256: e218cf2c1290f8f718a5501f23383d7de2b226800314ba61539b260e078d3c5f
+      size: 404
+  original:
+    hackage: attoparsec-aeson-2.2.2.0
 snapshots:
 - completed:
-    sha256: edbd50d7e7c85c13ad5f5835ae2db92fab1e9cf05ecf85340e2622ec0a303df1
-    size: 720020
-    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/22/34.yaml
-  original: lts-22.34
+    sha256: c6274f9587d6bf40b6aaa7d1092684c37a2d8bb1e0df999ae0e2b755db15682d
+    size: 720026
+    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/22/37.yaml
+  original: lts-22.37
