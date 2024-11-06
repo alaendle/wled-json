@@ -1,0 +1,6 @@
+BSD-2
+BSD-3
+BSD2
+BSD3
+ISC
+MIT
