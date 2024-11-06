@@ -65,3 +65,8 @@ tests:
     - -with-rtsopts=-N
     dependencies:
     - wled-json
+    - aeson
+    - hspec
+    verbatim: |
+      build-tool-depends:
+          hspec-discover:hspec-discover

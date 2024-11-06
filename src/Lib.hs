@@ -1,16 +1,16 @@
+{-# LANGUAGE OverloadedStrings   #-}
 {-# LANGUAGE ScopedTypeVariables #-}
-{-# LANGUAGE OverloadedStrings #-}
 
 module Lib
     ( getLampState,
       setLampState
     ) where
 
-import Data.ByteString (ByteString, toStrict)
-import Network.HTTP.Simple (getResponseBody, httpBS, parseRequest, setRequestBodyJSON)
-import Types
-import Data.Aeson (eitherDecodeStrict, encode)
-import Network.HTTP.Client.Conduit (Request(method), path)
+import           Data.Aeson                  (eitherDecodeStrict, encode)
+import           Data.ByteString             (ByteString, toStrict)
+import           Network.HTTP.Client.Conduit (Request (method), path)
+import           Network.HTTP.Simple         (getResponseBody, httpBS, parseRequest, setRequestBodyJSON)
+import           Types                       (StateComplete, StatePatch)
 
 
 -- >>> getLampState "http://192.168.178.34"
@@ -18,7 +18,7 @@ import Network.HTTP.Client.Conduit (Request(method), path)
 getLampState :: String -> IO (Either String StateComplete)
 getLampState wledUrl = do
     req <- parseRequest wledUrl
-    res <- httpBS req { path = "json/state" } 
+    res <- httpBS req { path = "json/state" }
     pure (eitherDecodeStrict $ getResponseBody res)
 
 -- >>> setLampState "http://192.168.178.34" $ (mempty :: StatePatch) { stateBri = Just 10 } <> (mempty :: StatePatch) { stateOn = Nothing }

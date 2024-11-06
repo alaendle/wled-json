@@ -1,17 +1,20 @@
-{-# LANGUAGE Arrows #-}
-{-# LANGUAGE DataKinds #-}
+{-# LANGUAGE Arrows                   #-}
+{-# LANGUAGE DataKinds                #-}
+{-# LANGUAGE StandaloneKindSignatures #-}
 
 module Main (main) where
 
-import Lib
-import Types
-
-import FRP.Rhine
-import Control.Monad (void)
+import           Control.Monad (void)
+import           Data.Kind     (Type)
+import           FRP.Rhine
+import           GHC.TypeLits  (Nat)
+import           Lib
+import           Types
 
 waitForEnter :: ClSF (ExceptT () IO) StdinClock () ()
 waitForEnter = arrMCl throwE
 
+type TimeClock :: Nat -> Type
 type TimeClock ms = LiftClock IO (ExceptT ()) (Millisecond ms)
 
 sinusWave :: (Int -> ExceptT () IO ()) -> ClSF (ExceptT () IO) (TimeClock 100) () ()
