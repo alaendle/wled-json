@@ -479,3 +479,5 @@ newline: native
 #
 # Default: true
 cabal: true
+
+#exit_code: error_on_format
