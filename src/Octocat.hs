@@ -12,4 +12,4 @@ france = (mempty :: StatePatch) { stateSeg = Just [ seg 0 5 white, seg 5 16 red,
     blue = [0,0,255]
 
 seg :: Int -> Int -> [Int] -> SegmentPatch
-seg start stop color = (mempty :: SegmentPatch) { segmentStart = Just start, segmentStop = Just stop, segmentCol = Just [color] }
+seg start stop color = (mempty :: SegmentPatch) { segmentStart = Just start, segmentStop = Just stop, segmentCol = Just [color], segmentFx = Just 0 }

@@ -9,6 +9,7 @@ import           Data.Kind     (Type)
 import           FRP.Rhine
 import           GHC.TypeLits  (Nat)
 import           Lib
+import           Octocat       (france)
 import           Types
 
 waitForEnter :: ClSF (ExceptT () IO) StdinClock () ()
@@ -19,7 +20,7 @@ type TimeClock ms = LiftClock IO (ExceptT ()) (Millisecond ms)
 
 sinusWave :: (Int -> ExceptT () IO ()) -> ClSF (ExceptT () IO) (TimeClock 100) () ()
 sinusWave signalHandler = sinceStart >>> proc time -> do
-    arrMCl (signalHandler . scaledSinusWave 0 31 0.5) -< time
+    arrMCl (signalHandler . scaledSinusWave 0 255 0.1) -< time
     returnA -< ()
   where
     timeToSinusWave :: Double -> Double -> Double
@@ -33,6 +34,7 @@ main = do
     case lampState of
         Left errMsg -> putStrLn errMsg
         Right _ -> do
+            _ <- setLampState wledUrl france
             void $ runExceptT $ flow $ waitForEnter @@ StdinClock |@| sinusWave (\bri -> liftIO $ void $ setLampState wledUrl (mempty :: StatePatch) { stateBri = Just bri }) @@ liftClock waitClock
   where
     wledUrl = "http://192.168.178.34"
