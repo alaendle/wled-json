@@ -89,34 +89,34 @@ instance (Alternative f) => Monoid (Nightlight Covered f) where
 -- | Segment data type.
 type Segment :: Type -> (Type -> Type) -> Type
 data Segment t f = Segment
-    { segmentId :: Wear t f Int
+    { segmentId    :: Wear t f Int
     , segmentStart :: Wear t f Int
-    , segmentStop :: Wear t f Int
-    , segmentLen :: Wear t f Int
-    , segmentGrp :: Wear t f Int
-    , segmentSpc :: Wear t f Int
-    , segmentOf :: Wear t f Int
-    , segmentOn :: Wear t f Bool
-    , segmentFrz :: Wear t f Bool
-    , segmentBri :: Wear t f Int
-    , segmentCct :: Wear t f Int
-    , segmentSet :: Wear t f Int
-    , segmentCol :: Wear t f [[Int]]
-    , segmentFx :: Wear t f Int
-    , segmentSx :: Wear t f Int
-    , segmentIx :: Wear t f Int
-    , segmentPal :: Wear t f Int
-    , segmentC1 :: Wear t f Int
-    , segmentC2 :: Wear t f Int
-    , segmentC3 :: Wear t f Int
-    , segmentSel :: Wear t f Bool
-    , segmentRev :: Wear t f Bool
-    , segmentMi :: Wear t f Bool
-    , segmentO1 :: Wear t f Bool
-    , segmentO2 :: Wear t f Bool
-    , segmentO3 :: Wear t f Bool
-    , segmentSi :: Wear t f Int
-    , segmentM12 :: Wear t f Int
+    , segmentStop  :: Wear t f Int
+    , segmentLen   :: Wear t f Int
+    , segmentGrp   :: Wear t f Int
+    , segmentSpc   :: Wear t f Int
+    , segmentOf    :: Wear t f Int
+    , segmentOn    :: Wear t f Bool
+    , segmentFrz   :: Wear t f Bool
+    , segmentBri   :: Wear t f Int
+    , segmentCct   :: Wear t f Int
+    , segmentSet   :: Wear t f Int
+    , segmentCol   :: Wear t f [[Int]]
+    , segmentFx    :: Wear t f Int
+    , segmentSx    :: Wear t f Int
+    , segmentIx    :: Wear t f Int
+    , segmentPal   :: Wear t f Int
+    , segmentC1    :: Wear t f Int
+    , segmentC2    :: Wear t f Int
+    , segmentC3    :: Wear t f Int
+    , segmentSel   :: Wear t f Bool
+    , segmentRev   :: Wear t f Bool
+    , segmentMi    :: Wear t f Bool
+    , segmentO1    :: Wear t f Bool
+    , segmentO2    :: Wear t f Bool
+    , segmentO3    :: Wear t f Bool
+    , segmentSi    :: Wear t f Int
+    , segmentM12   :: Wear t f Int
     } deriving stock (Generic)
 
 instance ConstraintsB (Segment Covered)
