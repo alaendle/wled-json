@@ -26,6 +26,7 @@ source-repository head
 library
   exposed-modules:
       Lib
+      Octocat
       Types
   other-modules:
       Paths_wled_json
