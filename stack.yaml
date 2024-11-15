@@ -81,6 +81,3 @@ extra-deps:
 #
 # Allow a newer minor version of GHC than the snapshot specifies
 # compiler-check: newer-minor
-
-ghc-options:
-  "$locals": -Weverything -Werror -Wno-unsafe -Wno-missing-import-lists -Wno-prepositive-qualified-module -Wno-implicit-prelude -Wno-missing-safe-haskell-mode -Wno-safe

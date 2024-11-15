@@ -23,16 +23,15 @@ dependencies:
 - base >= 4.7 && < 5
 
 ghc-options:
-- -Wall
-- -Wcompat
-- -Widentities
-- -Wincomplete-record-updates
-- -Wincomplete-uni-patterns
-- -Wmissing-export-lists
-- -Wmissing-home-modules
-- -Wpartial-fields
-- -Wredundant-constraints
-- -Wunused-packages
+- -O0
+- -Weverything
+- -Werror
+- -Wno-unsafe
+- -Wno-missing-import-lists
+- -Wno-prepositive-qualified-module
+- -Wno-implicit-prelude
+- -Wno-missing-safe-haskell-mode
+- -Wno-safe
 
 library:
   source-dirs: src
