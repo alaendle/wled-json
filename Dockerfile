@@ -2,7 +2,8 @@ FROM fpco/stack-build-small:lts-22.40
 
 # Cache compiler
 RUN stack setup 9.6.6 && \
-    stack install stylish-haskell
+    stack install stylish-haskell \
+    stack install hlint
 
 # Cache dependencies
 WORKDIR /app
@@ -20,3 +21,4 @@ RUN diff <(stack ls dependencies --filter \$locals --license | cut -d" " -f2 | L
 
 # Check that all code is formatted
 RUN stylish-haskell -i -r . && git diff --exit-code
+RUN hlint .
