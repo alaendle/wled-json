@@ -2,7 +2,7 @@ FROM fpco/stack-build-small:lts-22.40
 
 # Cache compiler
 RUN stack setup 9.6.6 && \
-    stack install stylish-haskell \
+    stack install stylish-haskell && \
     stack install hlint
 
 # Cache dependencies

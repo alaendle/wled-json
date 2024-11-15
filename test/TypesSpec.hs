@@ -19,7 +19,16 @@ import           Types
 instance Arbitrary StatePatch where
   arbitrary = State <$> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary
 
+instance Arbitrary StateComplete where
+  arbitrary = State <$> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary
+
 instance Arbitrary SegmentPatch where
+  arbitrary = Segment <$> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary
+                      <*> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary
+                      <*> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary
+                      <*> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary
+
+instance Arbitrary SegmentComplete where
   arbitrary = Segment <$> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary
                       <*> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary
                       <*> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary
@@ -28,11 +37,17 @@ instance Arbitrary SegmentPatch where
 instance Arbitrary NightlightPatch where
   arbitrary = Nightlight <$> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary
 
+instance Arbitrary NightlightComplete where
+  arbitrary = Nightlight <$> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary
+
 prop_associativity :: StatePatch -> StatePatch -> StatePatch -> Bool
 prop_associativity a b c = (a <> b) <> c == a <> (b <> c)
 
 prop_identity :: StatePatch -> Bool
 prop_identity a = mempty <> a == a && a <> mempty == a
+
+--prop :: StateComplete -> StatePatch -> Bool
+--prop d dx = let s = append d dx in append d (diff d s) == s
 
 spec :: Spec
 spec = do
@@ -46,3 +61,5 @@ spec = do
         property prop_associativity
       it "should have an identity" $
         property prop_identity
+--      it "append/diff" $
+--        property prop

@@ -6,14 +6,14 @@
 {-# LANGUAGE StandaloneKindSignatures #-}
 {-# LANGUAGE UndecidableInstances     #-}
 
-module Types (State (..), Nightlight (..), Segment (..), StateComplete, StatePatch, NightlightComplete, NightlightPatch, SegmentComplete, SegmentPatch) where
+module Types (State (..), Nightlight (..), Segment (..), StateComplete, StatePatch, NightlightComplete, NightlightPatch, SegmentComplete, SegmentPatch, append, diff) where
 
 import           Barbies.Bare
 import           Control.Applicative      (Alternative ((<|>)), empty)
 import qualified Data.Aeson               as A
 import           Data.Char                (toLower)
 import           Data.Functor.Barbie
-import           Data.Functor.Identity    (Identity)
+import           Data.Functor.Identity    (Identity (..))
 import           Data.Functor.Transformer
 import           Data.Kind                (Type)
 import           Deriving.Aeson
@@ -70,6 +70,7 @@ instance ApplicativeB (Nightlight Covered)
 
 instance ConstraintsB (Nightlight Bare)
 instance FunctorB (Nightlight Bare)
+instance BareB Nightlight
 
 deriving stock instance (AllBF Show f (Nightlight Bare)) => Show (Nightlight Bare f)
 deriving stock instance (AllBF Eq f (Nightlight Bare)) => Eq (Nightlight Bare f)
@@ -125,6 +126,7 @@ instance ApplicativeB (Segment Covered)
 
 instance ConstraintsB (Segment Bare)
 instance FunctorB (Segment Bare)
+instance BareB Segment
 
 deriving stock instance (AllBF Show f (Segment Bare)) => Show (Segment Bare f)
 deriving stock instance (AllBF Eq f (Segment Bare)) => Eq (Segment Bare f)
@@ -164,3 +166,35 @@ type SegmentComplete = Segment Bare Identity
 
 type SegmentPatch :: Type
 type SegmentPatch = Segment Covered Maybe
+
+append :: StateComplete -> StatePatch -> StateComplete
+append (State aOn aBri aTransition aPs aPl aNl aLor aMainseg aSeg) (State bOn bBri bTransition bPs bPl bNl bLor bMainseg bSeg) =
+  State (cb aOn bOn) (cb aBri bBri) (cb aTransition bTransition) (cb aPs bPs) (cb aPl bPl) (cb' aNl bNl) (cb aLor bLor) (cb aMainseg bMainseg) (cb'' aSeg bSeg)
+  where
+    cb :: a -> Maybe a -> a
+    cb x dx = runIdentity $ fromMaybeI (Identity x) dx
+    cb' :: (BareB b, ApplicativeB (b Covered)) => b Bare Identity -> Maybe (b Covered Maybe) -> b Bare Identity
+    cb' x = maybe x (append' x)
+    cb'' :: (BareB b, ApplicativeB (b Covered)) => [b Bare Identity] -> Maybe [b Covered Maybe] -> [b Bare Identity]
+    cb'' x = maybe x (zipWith append' x)
+
+append' :: (BareB b, ApplicativeB (b Covered)) => b Bare Identity -> b Covered Maybe -> b Bare Identity
+append' x dx = bstrip $ bzipWith fromMaybeI (bcover x) dx
+
+diff :: StateComplete -> StateComplete -> StatePatch
+diff (State aOn aBri aTransition aPs aPl aNl aLor aMainseg aSeg) (State bOn bBri bTransition bPs bPl bNl bLor bMainseg bSeg) =
+  State (d aOn bOn) (d aBri bBri) (d aTransition bTransition) (d aPs bPs) (d aPl bPl) (d' aNl bNl) (d aLor bLor) (d aMainseg bMainseg) (d'' aSeg bSeg)
+  where
+    d :: Eq a => a -> a -> Maybe a
+    d a b = if a == b then Nothing else Just a
+    d' :: (Eq (b Bare Identity), Monoid (b Covered Maybe), BareB b) => b Bare Identity -> b Bare Identity -> Maybe (b Covered Maybe)
+    d' a b = if a == b then Nothing else Just $ diff' a b
+    d'' :: (Eq (b Bare Identity), Monoid (b Covered Maybe), BareB b) => [b Bare Identity] -> [b Bare Identity] -> Maybe [b Covered Maybe]
+    d'' a b = if a == b then Nothing else Just $ zipWith diff' a b
+
+diff' :: (Eq (b Bare Identity), Monoid (b Covered Maybe), BareB b) => b Bare Identity -> b Bare Identity -> b Covered Maybe
+diff' a b = if a == b then mempty else bmap (Just . runIdentity) (bcover a)
+
+fromMaybeI :: Identity a -> Maybe a -> Identity a
+fromMaybeI (Identity a) Nothing  = Identity a
+fromMaybeI _            (Just a)=Identity a
