@@ -50,10 +50,19 @@ deriving via CustomJSON '[OmitNothingFields, FieldLabelModifier '[StripPrefix "s
 deriving via CustomJSON '[OmitNothingFields, FieldLabelModifier '[StripPrefix "state", ToLower]] (State Covered f f') instance (FromJSON (f Bool), FromJSON (f Int), FromJSON (f (Nightlight Covered f')), FromJSON (f [Segment Covered f'])) => A.FromJSON (State Covered f f')
 deriving via CustomJSON '[OmitNothingFields, FieldLabelModifier '[StripPrefix "state", ToLower]] (State Covered f f') instance (ToJSON (f Bool), ToJSON (f Int), ToJSON (f (Nightlight Covered f')), ToJSON (f [Segment Covered f'])) => A.ToJSON (State Covered f f')
 
-instance (Alternative f) => Semigroup (State Covered f f') where
-  (<>) = tzipWith (<|>)
+instance Semigroup StatePatch where
+  (State aOn aBri aTransition aPs aPl aNl aLor aMainseg aSeg) <> (State bOn bBri bTransition bPs bPl bNl bLor bMainseg bSeg) = State (aOn <|> bOn) (aBri <|> bBri) (aTransition <|> bTransition) (aPs <|> bPs) (aPl <|> bPl) (aNl <||> bNl) (aLor <|> bLor) (aMainseg <|> bMainseg) (aSeg <|||> bSeg)
+    where
+      (<||>) :: Semigroup a => Maybe a -> Maybe a -> Maybe a
+      (<||>) (Just a) (Just b) = Just $ a <> b
+      (<||>) Nothing r         = r
+      (<||>) l       _         = l
+      (<|||>) :: Semigroup a => Maybe [a] -> Maybe [a] -> Maybe [a]
+      (<|||>) (Just a) (Just b) = Just $ zipWith (<>) a b
+      (<|||>) Nothing r         = r
+      (<|||>) l       _         = l
 
-instance (Alternative f) => Monoid (State Covered f f') where
+instance Monoid StatePatch where
   mempty = tpure empty
 
 -- | Nightlight data type.
