@@ -4,6 +4,7 @@
 {-# LANGUAGE FlexibleInstances        #-}
 {-# LANGUAGE StandaloneDeriving       #-}
 {-# LANGUAGE StandaloneKindSignatures #-}
+{-# LANGUAGE TypeApplications         #-}
 {-# LANGUAGE UndecidableInstances     #-}
 
 module Types (State (..), Nightlight (..), Segment (..), StateComplete, StatePatch, NightlightComplete, NightlightPatch, SegmentComplete, SegmentPatch, append, diff) where
@@ -187,14 +188,16 @@ diff (State aOn aBri aTransition aPs aPl aNl aLor aMainseg aSeg) (State bOn bBri
   where
     d :: Eq a => a -> a -> Maybe a
     d a b = if a == b then Nothing else Just a
-    d' :: (Eq (b Bare Identity), Monoid (b Covered Maybe), BareB b) => b Bare Identity -> b Bare Identity -> Maybe (b Covered Maybe)
+    d' :: (AllB Eq (b Covered), Eq (b Bare Identity), Monoid (b Covered Maybe), ConstraintsB (b Covered), ApplicativeB (b Covered), BareB b) => b Bare Identity -> b Bare Identity -> Maybe (b Covered Maybe)
     d' a b = if a == b then Nothing else Just $ diff' a b
-    d'' :: (Eq (b Bare Identity), Monoid (b Covered Maybe), BareB b) => [b Bare Identity] -> [b Bare Identity] -> Maybe [b Covered Maybe]
+    d'' :: (AllB Eq (b Covered), Eq (b Bare Identity), Monoid (b Covered Maybe), ConstraintsB (b Covered), ApplicativeB (b Covered), BareB b) => [b Bare Identity] -> [b Bare Identity] -> Maybe [b Covered Maybe]
     d'' a b = if a == b then Nothing else Just $ zipWith diff' a b
 
-diff' :: (Eq (b Bare Identity), Monoid (b Covered Maybe), BareB b) => b Bare Identity -> b Bare Identity -> b Covered Maybe
-diff' a b = if a == b then mempty else bmap (Just . runIdentity) (bcover a)
+-- >>> diff' (Nightlight {nightlightOn = False, nightlightDur = 0, nightlightMode = 0, nightlightTbri = 0, nightlightRem = 0}) (Nightlight {nightlightOn = True, nightlightDur = 0, nightlightMode = 0, nightlightTbri = 0, nightlightRem = 0})
+-- Nightlight {nightlightOn = Just True, nightlightDur = Nothing, nightlightMode = Nothing, nightlightTbri = Nothing, nightlightRem = Nothing}
+diff' :: (AllB Eq (b Covered), Eq (b Bare Identity),  Monoid (b Covered Maybe), ConstraintsB (b Covered),  ApplicativeB (b Covered), BareB b) => b Bare Identity -> b Bare Identity -> b Covered Maybe
+diff' a b = if a == b then mempty else bzipWithC @Eq (\aa bb -> if aa == bb then Nothing else Just (runIdentity bb)) (bcover a) (bcover b)
 
 fromMaybeI :: Identity a -> Maybe a -> Identity a
 fromMaybeI (Identity a) Nothing  = Identity a
-fromMaybeI _            (Just a)=Identity a
+fromMaybeI _            (Just a) = Identity a
