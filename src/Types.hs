@@ -1,3 +1,4 @@
+{-# LANGUAGE CPP                      #-}
 {-# LANGUAGE DataKinds                #-}
 {-# LANGUAGE DeriveGeneric            #-}
 {-# LANGUAGE DerivingVia              #-}
@@ -187,11 +188,27 @@ diff (State aOn aBri aTransition aPs aPl aNl aLor aMainseg aSeg) (State bOn bBri
   State (d aOn bOn) (d aBri bBri) (d aTransition bTransition) (d aPs bPs) (d aPl bPl) (d' aNl bNl) (d aLor bLor) (d aMainseg bMainseg) (d'' aSeg bSeg)
   where
     d :: Eq a => a -> a -> Maybe a
-    d a b = if a == b then Nothing else Just a
+    d a b = if a == b then Nothing else Just b
     d' :: (AllB Eq (b Covered), Eq (b Bare Identity), Monoid (b Covered Maybe), ConstraintsB (b Covered), ApplicativeB (b Covered), BareB b) => b Bare Identity -> b Bare Identity -> Maybe (b Covered Maybe)
     d' a b = if a == b then Nothing else Just $ diff' a b
     d'' :: (AllB Eq (b Covered), Eq (b Bare Identity), Monoid (b Covered Maybe), ConstraintsB (b Covered), ApplicativeB (b Covered), BareB b) => [b Bare Identity] -> [b Bare Identity] -> Maybe [b Covered Maybe]
-    d'' a b = if a == b then Nothing else Just $ zipWith diff' a b
+    d'' a b = if a == b then Nothing else Just $ zipWith (\i bb -> maybe (bmap (Just . runIdentity) $ bcover bb) (`diff'` bb) (a !? i)) [0..] b
+
+#if __GLASGOW_HASKELL__ <= 906
+-- | A total variant of the list index function `(!!)`.
+--
+-- > [2,3,4] !? 1    == Just 3
+-- > [2,3,4] !? (-1) == Nothing
+-- > []      !? 0    == Nothing
+(!?) :: [a] -> Int -> Maybe a
+xs !? n
+  | n < 0     = Nothing
+             -- Definition adapted from GHC.List
+  | otherwise = foldr (\x r k -> case k of
+                                   0 -> Just x
+                                   _ -> r (k-1)) (const Nothing) xs n
+{-# INLINABLE (!?) #-}
+#endif
 
 -- >>> diff' (Nightlight {nightlightOn = False, nightlightDur = 0, nightlightMode = 0, nightlightTbri = 0, nightlightRem = 0}) (Nightlight {nightlightOn = True, nightlightDur = 0, nightlightMode = 0, nightlightTbri = 0, nightlightRem = 0})
 -- Nightlight {nightlightOn = Just True, nightlightDur = Nothing, nightlightMode = Nothing, nightlightTbri = Nothing, nightlightRem = Nothing}

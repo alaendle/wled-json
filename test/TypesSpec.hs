@@ -46,8 +46,8 @@ prop_associativity a b c = (a <> b) <> c == a <> (b <> c)
 prop_identity :: StatePatch -> Bool
 prop_identity a = mempty <> a == a && a <> mempty == a
 
---prop :: StateComplete -> StatePatch -> Bool
---prop d dx = let s = append d dx in append d (diff d s) == s
+prop :: StateComplete -> StatePatch -> Bool
+prop c p = c == append c (diff (append c p) c)
 
 spec :: Spec
 spec = do
@@ -61,5 +61,15 @@ spec = do
         property prop_associativity
       it "should have an identity" $
         property prop_identity
---      it "append/diff" $
---        property prop
+      it "do not append lists" $ do
+        let complete :: StateComplete = State True 255 0 0 0 (Nightlight False 0 0 0 0) 0 0 []
+        let patch :: StatePatch = (mempty :: StatePatch) { stateSeg = Just [(mempty :: SegmentPatch) { segmentBri = Just 255 }] }
+        append complete patch `shouldBe` complete
+      it "append/diff" $
+        property prop
+      it "what" $ do
+        let c :: StateComplete = State {stateOn = False, stateBri = 0, stateTransition = 1, statePs = -1, statePl = 0, stateNl = Nightlight {nightlightOn = True, nightlightDur = 0, nightlightMode = 1, nightlightTbri = 0, nightlightRem = 1}, stateLor = -1, stateMainseg = 0, stateSeg = [Segment {segmentId = 1, segmentStart = 1, segmentStop = 1, segmentLen = 0, segmentGrp = -1, segmentSpc = 1, segmentOf = 0, segmentOn = True, segmentFrz = False, segmentBri = 1, segmentCct = 0, segmentSet = -1, segmentCol = [[]], segmentFx = 0, segmentSx = 0, segmentIx = 1, segmentPal = 0, segmentC1 = 1, segmentC2 = -1, segmentC3 = -1, segmentSel = True, segmentRev = True, segmentMi = False, segmentO1 = False, segmentO2 = True, segmentO3 = False, segmentSi = 1, segmentM12 = -1}]}
+        let p :: StatePatch = State {stateOn = Just False, stateBri = Just (-1), stateTransition = Nothing, statePs = Just 0, statePl = Just (-1), stateNl = Just (Nightlight {nightlightOn = Nothing, nightlightDur = Just 0, nightlightMode = Nothing, nightlightTbri = Just (-1), nightlightRem = Just 0}), stateLor = Just 1, stateMainseg = Just (-1), stateSeg = Just []}
+        print $ append c p
+        print $ diff (append c p) c
+        c `shouldBe` append c (diff (append c p) c)
