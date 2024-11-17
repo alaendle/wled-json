@@ -33,8 +33,13 @@ main = do
     lampState <- getLampState wledUrl
     case lampState of
         Left errMsg -> putStrLn errMsg
-        Right _ -> do
+        Right initialState -> do
             _ <- setLampState wledUrl france
             void $ runExceptT $ flow $ waitForEnter @@ StdinClock |@| sinusWave (\bri -> liftIO $ void $ setLampState wledUrl (mempty :: StatePatch) { stateBri = Just bri }) @@ liftClock waitClock
+            Right currentState <- getLampState wledUrl
+            _ <- setLampState wledUrl (diff currentState initialState)
+            -- validate that initial state is restored
+            Right restoredState <- getLampState wledUrl
+            putStrLn $ "Initial state is restored: " <> show (initialState == restoredState)
   where
     wledUrl = "http://192.168.178.34"

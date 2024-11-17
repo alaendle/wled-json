@@ -200,8 +200,8 @@ diff (State aOn aBri aTransition aPs aPl aNl aLor aMainseg aSeg) (State bOn bBri
     d a b = if a == b then Nothing else Just b
     d' :: (AllB Eq (b Covered), Eq (b Bare Identity), Monoid (b Covered Maybe), ConstraintsB (b Covered), ApplicativeB (b Covered), BareB b) => b Bare Identity -> b Bare Identity -> Maybe (b Covered Maybe)
     d' a b = if a == b then Nothing else Just $ diff' a b
-    d'' :: (AllB Eq (b Covered), Eq (b Bare Identity), Monoid (b Covered Maybe), ConstraintsB (b Covered), ApplicativeB (b Covered), BareB b) => [b Bare Identity] -> [b Bare Identity] -> Maybe [b Covered Maybe]
-    d'' a b = if a == b then Nothing else Just $ zipWith (\i bb -> maybe (bmap (Just . runIdentity) $ bcover bb) (`diff'` bb) (a !? i)) [0..] b
+    d'' :: [Segment Bare Identity] -> [Segment Bare Identity] -> Maybe [Segment Covered Maybe]
+    d'' a b = if a == b then Nothing else Just $ zipWith (\i bb -> maybe (bmap (Just . runIdentity) $ bcover bb) (`diff'` bb) (a !? i)) [0..] b ++ replicate (length a - length b) ((mempty :: SegmentPatch) { segmentStop = Just 0 })
 
 #if __GLASGOW_HASKELL__ <= 906
 -- | A total variant of the list index function `(!!)`.
