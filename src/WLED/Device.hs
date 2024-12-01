@@ -1,7 +1,7 @@
 {-# LANGUAGE OverloadedStrings   #-}
 {-# LANGUAGE ScopedTypeVariables #-}
 
-module Lib
+module WLED.Device
     ( getLampState,
       setLampState
     ) where
@@ -10,7 +10,7 @@ import           Data.Aeson                  (eitherDecodeStrict, encode)
 import           Data.ByteString             (ByteString, toStrict)
 import           Network.HTTP.Client.Conduit (Request (method), path)
 import           Network.HTTP.Simple         (getResponseBody, httpBS, parseRequest, setRequestBodyJSON)
-import           Types                       (StateComplete, StatePatch)
+import           WLED.Types                  (StateComplete, StatePatch)
 
 
 -- >>> getLampState "http://192.168.178.34"

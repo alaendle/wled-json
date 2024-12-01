@@ -8,7 +8,7 @@
 {-# LANGUAGE TypeApplications         #-}
 {-# LANGUAGE UndecidableInstances     #-}
 
-module Types (State (..), Nightlight (..), Segment (..), StateComplete, StatePatch, NightlightComplete, NightlightPatch, SegmentComplete, SegmentPatch, append, diff) where
+module WLED.Types (State (..), Nightlight (..), Segment (..), StateComplete, StatePatch, NightlightComplete, NightlightPatch, SegmentComplete, SegmentPatch, append, diff) where
 
 import           Barbies.Bare
 import           Control.Applicative      (Alternative ((<|>)), empty)

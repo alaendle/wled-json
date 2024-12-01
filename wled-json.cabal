@@ -25,9 +25,9 @@ source-repository head
 
 library
   exposed-modules:
-      Lib
-      Octocat
-      Types
+      WLED.Device
+      WLED.Octocat.Flags
+      WLED.Types
   other-modules:
       Paths_wled_json
   autogen-modules:
