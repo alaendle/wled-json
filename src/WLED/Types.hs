@@ -8,6 +8,16 @@
 {-# LANGUAGE TypeApplications         #-}
 {-# LANGUAGE UndecidableInstances     #-}
 
+
+{-|
+Module      : WLED.Device
+Copyright   : (c) Andreas Ländle, 2024
+License     : BSD-3
+Stability   : experimental
+
+Types representing states and state changes of a WLED device.
+-}
+
 module WLED.Types (State (..), Nightlight (..), Segment (..), StateComplete, StatePatch, NightlightComplete, NightlightPatch, SegmentComplete, SegmentPatch, append, diff) where
 
 import           Barbies.Bare
