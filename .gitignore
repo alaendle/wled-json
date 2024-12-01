@@ -1,4 +1,5 @@
 .stack-work/
 *~
-bin
-obj
+bin/
+obj/
+dist-newstyle/

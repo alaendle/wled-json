@@ -5,8 +5,10 @@ cabal-version: 2.2
 -- see: https://github.com/sol/hpack
 
 name:           wled-json
-version:        0.1.0.0
+version:        0.0.1.0
+synopsis:       Convenient interface for interacting with WLED devices
 description:    Please see the README on GitHub at <https://github.com/alaendle/wled-json#readme>
+category:       Interfaces
 homepage:       https://github.com/alaendle/wled-json#readme
 bug-reports:    https://github.com/alaendle/wled-json/issues
 author:         Andreas Ländle
@@ -17,6 +19,7 @@ license-file:   LICENSE
 build-type:     Simple
 extra-source-files:
     README.md
+extra-doc-files:
     CHANGELOG.md
 
 source-repository head
@@ -34,14 +37,14 @@ library
       Paths_wled_json
   hs-source-dirs:
       src
-  ghc-options: -O0 -Weverything -Werror -Wno-unsafe -Wno-missing-import-lists -Wno-prepositive-qualified-module -Wno-implicit-prelude -Wno-missing-safe-haskell-mode -Wno-safe
+  ghc-options: -O0 -Weverything -Wno-unsafe -Wno-missing-import-lists -Wno-prepositive-qualified-module -Wno-implicit-prelude -Wno-missing-safe-haskell-mode -Wno-safe
   build-depends:
-      aeson
-    , barbies
+      aeson >=2.2.3 && <2.3
+    , barbies >=2.0.5 && <2.2
     , base >=4.7 && <5
-    , bytestring
-    , deriving-aeson
-    , http-conduit
+    , bytestring >=0.11.5.3 && <0.13
+    , deriving-aeson >=0.2.9 && <0.3
+    , http-conduit >=2.3.9.1 && <2.4
   default-language: Haskell2010
 
 executable wled-json-exe
@@ -52,10 +55,10 @@ executable wled-json-exe
       Paths_wled_json
   hs-source-dirs:
       app
-  ghc-options: -O0 -Weverything -Werror -Wno-unsafe -Wno-missing-import-lists -Wno-prepositive-qualified-module -Wno-implicit-prelude -Wno-missing-safe-haskell-mode -Wno-safe -threaded -rtsopts -with-rtsopts=-N
+  ghc-options: -O0 -Weverything -Wno-unsafe -Wno-missing-import-lists -Wno-prepositive-qualified-module -Wno-implicit-prelude -Wno-missing-safe-haskell-mode -Wno-safe -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
-    , rhine
+    , rhine >=1.4.0.1 && <1.6
     , wled-json
   default-language: Haskell2010
 
@@ -69,7 +72,7 @@ test-suite wled-json-test
       Paths_wled_json
   hs-source-dirs:
       test
-  ghc-options: -O0 -Weverything -Werror -Wno-unsafe -Wno-missing-import-lists -Wno-prepositive-qualified-module -Wno-implicit-prelude -Wno-missing-safe-haskell-mode -Wno-safe -threaded -rtsopts -with-rtsopts=-N
+  ghc-options: -O0 -Weverything -Wno-unsafe -Wno-missing-import-lists -Wno-prepositive-qualified-module -Wno-implicit-prelude -Wno-missing-safe-haskell-mode -Wno-safe -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       QuickCheck
     , aeson

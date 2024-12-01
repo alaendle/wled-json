@@ -20,6 +20,10 @@ import           Data.Functor.Transformer
 import           Data.Kind                (Type)
 import           Deriving.Aeson
 
+#if __GLASGOW_HASKELL__ > 906
+import           Data.List                ((!?))
+#endif
+
 -- | State data type.
 type State :: Type -> (Type -> Type)-> (Type -> Type) -> Type
 data State t f f' = State

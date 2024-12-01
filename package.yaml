@@ -1,5 +1,5 @@
 name:                wled-json
-version:             0.1.0.0
+version:             0.0.1.0
 github:              "alaendle/wled-json"
 license:             BSD-3-Clause
 author:              "Andreas Ländle"
@@ -8,11 +8,13 @@ copyright:           "2024 Andreas Ländle"
 
 extra-source-files:
 - README.md
+
+extra-doc-files:
 - CHANGELOG.md
 
 # Metadata used when publishing your package
-# synopsis:            Short description of your package
-# category:            Web
+synopsis:            Convenient interface for interacting with WLED devices
+category:            Interfaces
 
 # To avoid duplicated efforts in documentation and dealing with the
 # complications of embedding Haddock markup inside cabal files, it is
@@ -25,7 +27,7 @@ dependencies:
 ghc-options:
 - -O0
 - -Weverything
-- -Werror
+#- -Werror
 - -Wno-unsafe
 - -Wno-missing-import-lists
 - -Wno-prepositive-qualified-module
@@ -36,11 +38,11 @@ ghc-options:
 library:
   source-dirs: src
   dependencies:
-  - barbies
-  - aeson
-  - bytestring
-  - deriving-aeson
-  - http-conduit
+  - barbies >= 2.0.5 && < 2.2
+  - aeson >= 2.2.3 && < 2.3
+  - bytestring >= 0.11.5.3 && < 0.13
+  - deriving-aeson >= 0.2.9 && < 0.3
+  - http-conduit >= 2.3.9.1 && < 2.4
 
 executables:
   wled-json-exe:
@@ -52,7 +54,7 @@ executables:
     - -with-rtsopts=-N
     dependencies:
     - wled-json
-    - rhine
+    - rhine >= 1.4.0.1 && < 1.6
 
 tests:
   wled-json-test:

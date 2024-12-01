@@ -12,7 +12,7 @@ RUN stack build --test --dependencies-only
 
 # Do the actual work
 COPY . .
-RUN stack test
+RUN stack test --ghc-options '-Werror'
 
 # Validation
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
