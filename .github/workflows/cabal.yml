@@ -3,7 +3,7 @@ name: cabal
 on:
   workflow_dispatch:
   push:
-    branches: [main]
+    branches: ["**"]
   schedule:
     # additionally run once per week (At 00:00 on Sunday) to maintain cache
     - cron: '0 0 * * 0'
