@@ -6,7 +6,7 @@ The project adheres to the [Haskell Package Versioning Policy](https://pvp.haske
 
 ## Unreleased
 
-## 0.0.1.0 - Initial release - YYYY-MM-DD
+## 0.0.1.0 - Initial release - 2024-12-02
 
 - Core Functionality:
   - Basic connection to WLED devices

@@ -1,3 +1,7 @@
 {
-    "haskell.formattingProvider": "stylish-haskell"
+    "haskell.formattingProvider": "stylish-haskell",
+    "cSpell.words": [
+        "Octolamp",
+        "WLED"
+    ]
 }
