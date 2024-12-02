@@ -8,7 +8,17 @@
 {-# LANGUAGE TypeApplications         #-}
 {-# LANGUAGE UndecidableInstances     #-}
 
-module Types (State (..), Nightlight (..), Segment (..), StateComplete, StatePatch, NightlightComplete, NightlightPatch, SegmentComplete, SegmentPatch, append, diff) where
+
+{-|
+Module      : WLED.Device
+Copyright   : (c) Andreas Ländle, 2024
+License     : BSD-3
+Stability   : experimental
+
+Types representing states and state changes of a WLED device.
+-}
+
+module WLED.Types (State (..), Nightlight (..), Segment (..), StateComplete, StatePatch, NightlightComplete, NightlightPatch, SegmentComplete, SegmentPatch, append, diff) where
 
 import           Barbies.Bare
 import           Control.Applicative      (Alternative ((<|>)), empty)
@@ -19,6 +29,10 @@ import           Data.Functor.Identity    (Identity (..))
 import           Data.Functor.Transformer
 import           Data.Kind                (Type)
 import           Deriving.Aeson
+
+#if __GLASGOW_HASKELL__ > 906
+import           Data.List                ((!?))
+#endif
 
 -- | State data type.
 type State :: Type -> (Type -> Type)-> (Type -> Type) -> Type

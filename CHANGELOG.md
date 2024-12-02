@@ -1,11 +1,15 @@
 # Changelog for `wled-json`
 
-All notable changes to this project will be documented in this file.
+Hopefully all notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to the
-[Haskell Package Versioning Policy](https://pvp.haskell.org/).
+The project adheres to the [Haskell Package Versioning Policy](https://pvp.haskell.org/).
 
 ## Unreleased
 
-## 0.1.0.0 - YYYY-MM-DD
+## 0.0.1.0 - Initial release - 2024-12-02
+
+- Core Functionality:
+  - Basic connection to WLED devices
+  - Setting color, brightness, etc.
+- Octolamp Support:
+  - Initial support for Octolamp-specific features (provide the French flag)

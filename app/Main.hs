@@ -4,13 +4,13 @@
 
 module Main (main) where
 
-import           Control.Monad (void)
-import           Data.Kind     (Type)
+import           Control.Monad      (void)
+import           Data.Kind          (Type)
 import           FRP.Rhine
-import           GHC.TypeLits  (Nat)
-import           Lib
-import           Octocat       (france)
-import           Types
+import           GHC.TypeLits       (Nat)
+import           WLED.Device
+import           WLED.Octocat.Flags (france)
+import           WLED.Types
 
 waitForEnter :: ClSF (ExceptT () IO) StdinClock () ()
 waitForEnter = arrMCl throwE

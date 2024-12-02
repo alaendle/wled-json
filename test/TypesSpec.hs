@@ -14,7 +14,7 @@ import           Data.Aeson.Key
 import           Data.Aeson.KeyMap
 import           Test.Hspec
 import           Test.QuickCheck
-import           Types
+import           WLED.Types
 
 instance Arbitrary StatePatch where
   arbitrary = State <$> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary
