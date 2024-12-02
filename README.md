@@ -3,7 +3,7 @@
 Haskell bindings for controlling WLED devices, with a focus on Octolamps
 
 <p align="center">
-  <img src="./images/octolamp.jpg" alt="Octolamp showing french flag" width="50%"/>
+  <img src="https://raw.githubusercontent.com/alaendle/wled-json/main/images/octolamp.jpg" alt="Octolamp showing french flag" width="50%"/>
 </p>
 
 ## Introduction 💡
