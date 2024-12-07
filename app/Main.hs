@@ -1,8 +1,12 @@
 {-# LANGUAGE Arrows           #-}
+{-# LANGUAGE CPP              #-}
 {-# LANGUAGE DataKinds        #-}
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE TypeApplications #-}
 {-# LANGUAGE TypeOperators    #-}
+#if __GLASGOW_HASKELL__ < 904
+{-# LANGUAGE TypeFamilies     #-}
+#endif
 
 module Main (main) where
 
