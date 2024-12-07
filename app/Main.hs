@@ -13,7 +13,7 @@ module Main (main) where
 import           Control.Monad      (void)
 import           FRP.Rhine
 import           WLED.Device
-import           WLED.Octocat.Flags (france, guatemala, nigeria, peru)
+import           WLED.Octocat.Flags (belgium, cameroon, chad, france, guatemala, guinea, ireland, italy, ivoryCoast, mali, nigeria, peru)
 import           WLED.Types
 
 waitForEnter :: ClSF (ExceptT () IO) StdinClock () ()
@@ -31,8 +31,8 @@ brightnessSinus :: Monad m => Double -> ClSF m cl Double StatePatch
 brightnessSinus frequency = sinusWave 0 255 frequency >-> arr (\bri -> (mempty :: StatePatch) { stateBri = Just bri })
 
 switchFlags :: Monad m => Double -> ClSF m cl Double StatePatch
-switchFlags frequency = arr (\t -> allFlags !! (floor (t * frequency) `mod` 4)) where
-  allFlags = [france, guatemala, nigeria, peru]
+switchFlags frequency = arr (\t -> allFlags !! (floor (t * frequency) `mod` length allFlags)) where
+  allFlags = [belgium, cameroon, chad, france, guatemala, guinea, ireland, italy, ivoryCoast, mali, nigeria, peru]
 
 animation :: (Monad m, TimeDomain (Time cl), Diff (Time cl) ~ Double) => ClSF m cl () StatePatch
 animation = sinceStart >-> proc time -> do
