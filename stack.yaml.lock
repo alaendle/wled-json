@@ -40,9 +40,9 @@ packages:
   original:
     hackage: strict-0.5.1
 - completed:
-    hackage: primitive-0.9.0.0@sha256:2e08c5409e3559c7f1669ef50e9a0d9a397e68ecf51110d5e2cedf05cdd7d93c,3171
+    hackage: primitive-0.9.0.0@sha256:de20bf4eff1f972088854c8efda6eaca2d3147aff62232c3707f059152638759,3203
     pantry-tree:
-      sha256: a862f3979a8ed2ae047287de3c7376f749ee97d5a27c9c55a4c6d94ffb7d1601
+      sha256: dfbbba14651e21a849a5a7f2fa91a7f8f62449da64b476e139c8da4b73aedd02
       size: 1793
   original:
     hackage: primitive-0.9.0.0
@@ -75,19 +75,19 @@ packages:
   original:
     hackage: attoparsec-aeson-2.2.2.0
 - completed:
-    hackage: rhine-1.4.0.1@sha256:ec0e017cfd6a1fafbe81adc96202da1a93f9d35e84463e58d8d65213927d5978,5389
+    hackage: rhine-1.5@sha256:e6d30e95261536120b91c9385babff271ef2d9aae1498a5289b5acd30a157c9a,5477
     pantry-tree:
-      sha256: e899bc35e2c928c21196d782822537b5bb75ba5fb3028e128585545aad379c8e
-      size: 4118
+      sha256: 93dd71c8f1b08abaf890b068c842f6aefe8be56e7a372a5a816bb30edc36352f
+      size: 4193
   original:
-    hackage: rhine-1.4.0.1
+    hackage: rhine-1.5
 - completed:
-    hackage: automaton-1.4@sha256:45a1b08d0f154c5ecdf4bc0eab165359ec6524e079a0c604ef8a0798fcf90ba3,2361
+    hackage: automaton-1.5@sha256:4b6dc488b7290d11dbc96f18d43775d028459fec306172615d38b175544fdac5,2649
     pantry-tree:
-      sha256: e12dbafa8388db550e6cc136477fa28658963b815c05a1a6ab94c80bb129cbf6
-      size: 1778
+      sha256: 186274ee2beead2e0061382065e8a3052f7d2444dd96bd4571c8da3f861d2c2b
+      size: 1968
   original:
-    hackage: automaton-1.4
+    hackage: automaton-1.5
 - completed:
     hackage: monad-schedule-0.2.0.1@sha256:79e9323d4b02b16f170b0ef98bdbadfbdb93b64969f752827ba361f3d527ecdc,2353
     pantry-tree:
@@ -97,7 +97,7 @@ packages:
     hackage: monad-schedule-0.2.0.1
 snapshots:
 - completed:
-    sha256: 521009bd88879b6993fab5ea5abe1ee2a539dfd8ec2dfc7c57017a8eaee1e78b
-    size: 720262
-    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/22/40.yaml
-  original: lts-22.40
+    sha256: 08bd13ce621b41a8f5e51456b38d5b46d7783ce114a50ab604d6bbab0d002146
+    size: 720271
+    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/22/43.yaml
+  original: lts-22.43
