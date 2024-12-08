@@ -6,6 +6,9 @@ The project adheres to the [Haskell Package Versioning Policy](https://pvp.haske
 
 ## Unreleased
 
+- Octolamp Support:
+  - Added more flags with three vertical stripes
+
 ## 0.0.1.0 - Initial release - 2024-12-02
 
 - Core Functionality:
