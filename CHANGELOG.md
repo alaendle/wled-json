@@ -8,6 +8,7 @@ The project adheres to the [Haskell Package Versioning Policy](https://pvp.haske
 
 - Demonstration:
   - Added menu and option to change wled device URL via terminal or command line argument
+  - Added tool to traverse every single LED (to be able to better detect positions)
 - Octolamp Support:
   - Added more flags with three vertical stripes
 

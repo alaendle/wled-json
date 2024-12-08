@@ -18,7 +18,7 @@ Stability   : experimental
 Types representing states and state changes of a WLED device.
 -}
 
-module WLED.Types (State (..), Nightlight (..), Segment (..), StateComplete, StatePatch, NightlightComplete, NightlightPatch, SegmentComplete, SegmentPatch, append, diff) where
+module WLED.Types (State (..), Nightlight (..), Segment (..), StateComplete, StatePatch, NightlightComplete, NightlightPatch, SegmentComplete, SegmentPatch, append, diff, segment) where
 
 import           Barbies.Bare
 import           Control.Applicative      (Alternative ((<|>)), empty)
@@ -216,6 +216,9 @@ diff (State aOn aBri aTransition aPs aPl aNl aLor aMainseg aSeg) (State bOn bBri
     d' a b = if a == b then Nothing else Just $ diff' a b
     d'' :: [Segment Bare Identity] -> [Segment Bare Identity] -> Maybe [Segment Covered Maybe]
     d'' a b = if a == b then Nothing else Just $ zipWith (\i bb -> maybe (bmap (Just . runIdentity) $ bcover bb) (`diff'` bb) (a !? i)) [0..] b ++ replicate (length a - length b) ((mempty :: SegmentPatch) { segmentStop = Just 0 })
+
+segment :: Int -> Int -> [Int] -> SegmentPatch
+segment start stop color = (mempty :: SegmentPatch) { segmentStart = Just start, segmentStop = Just stop, segmentCol = Just [color], segmentFx = Just 0 }
 
 #if __GLASGOW_HASKELL__ <= 906
 -- | A total variant of the list index function `(!!)`.

@@ -61,10 +61,23 @@ peru :: StatePatch
 peru = threeVerticalStripes ral3028 white ral3028
 
 threeVerticalStripes :: [Int] -> [Int] -> [Int] -> StatePatch
-threeVerticalStripes leftColor middleColor rightColor = (mempty :: StatePatch) { stateSeg = Just [ seg 0 5 middleColor, seg 5 16 rightColor, seg 16 23 middleColor, seg 23 34 leftColor, seg 34 41 middleColor, seg 41 52 leftColor, seg 52 57 middleColor, seg 57 68 rightColor, seg 68 101 middleColor ]}
-
-seg :: Int -> Int -> [Int] -> SegmentPatch
-seg start stop color = (mempty :: SegmentPatch) { segmentStart = Just start, segmentStop = Just stop, segmentCol = Just [color], segmentFx = Just 0 }
+threeVerticalStripes leftColor middleColor rightColor = (mempty :: StatePatch) { stateSeg = Just [
+    segment 0 3 middleColor,
+    segment 3 17 rightColor,
+    segment 17 21 middleColor,
+    segment 21 36 leftColor,
+    segment 36 40 middleColor,
+    segment 40 53 leftColor,
+    segment 53 57 middleColor,
+    segment 57 69 rightColor,
+    segment 69 75 middleColor,
+    segment 75 80 rightColor,
+    segment 80 84 middleColor,
+    segment 84 91 leftColor,
+    segment 91 94 middleColor,
+    segment 94 98 leftColor,
+    segment 98 101 middleColor ]}
+--threeVerticalStripes leftColor middleColor rightColor = (mempty :: StatePatch) { stateSeg = Just [ segment 0 5 middleColor, segment 5 16 rightColor, segment 16 23 middleColor, segment 23 34 leftColor, segment 34 41 middleColor, segment 41 52 leftColor, segment 52 57 middleColor, segment 57 68 rightColor, segment 68 101 middleColor ]}
 
 ral1018 :: [Int]
 ral1018 = [252, 209, 22]
