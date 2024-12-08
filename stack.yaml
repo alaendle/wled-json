@@ -17,7 +17,7 @@
 #
 # snapshot: ./custom-snapshot.yaml
 # snapshot: https://example.com/snapshots/2023-01-01.yaml
-snapshot: lts-22.40
+snapshot: lts-22.43
 
 # User packages to be built.
 # Various formats can be used as shown in the example below.
@@ -53,9 +53,9 @@ extra-deps:
 - witherable-0.5
 - attoparsec-aeson-2.2.2.0
 # want to try this for FRP demo
-- rhine-1.4.0.1
+- rhine-1.5
 # dependencies of rhine (direct & indirect)
-- automaton-1.4
+- automaton-1.5
 - monad-schedule-0.2.0.1
 
 # Override default flag values for project packages and extra-deps
