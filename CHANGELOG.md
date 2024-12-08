@@ -6,6 +6,8 @@ The project adheres to the [Haskell Package Versioning Policy](https://pvp.haske
 
 ## Unreleased
 
+- Demonstration:
+  - Added menu and option to change wled device URL via terminal or command line argument
 - Octolamp Support:
   - Added more flags with three vertical stripes
 

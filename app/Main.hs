@@ -12,6 +12,8 @@ module Main (main) where
 
 import           Control.Monad      (void)
 import           FRP.Rhine
+import           System.Environment (getArgs)
+import           System.IO          (BufferMode (NoBuffering), hSetBuffering, stdout)
 import           WLED.Device
 import           WLED.Octocat.Flags (belgium, cameroon, chad, france, guatemala, guinea, ireland, italy, ivoryCoast, mali, nigeria, peru)
 import           WLED.Types
@@ -42,15 +44,45 @@ animation = sinceStart >-> proc time -> do
 
 main :: IO ()
 main = do
-    lampState <- getLampState wledUrl
-    case lampState of
-        Left errMsg -> putStrLn errMsg
-        Right initialState -> do
-            void $ runExceptT $ flow $ waitForEnter @@ StdinClock |@| (animation >-> arrMCl (liftIO . void . setLampState wledUrl)) @@ liftClock @IO @(ExceptT ()) (waitClock @100)
-            Right currentState <- getLampState wledUrl
-            _ <- setLampState wledUrl (diff currentState initialState)
-            -- validate that initial state is restored
-            Right restoredState <- getLampState wledUrl
-            putStrLn $ "Initial state is restored: " <> show (initialState == restoredState)
+  hSetBuffering stdout NoBuffering
+  putStrLn "-----------------------------------------------------------------------"
+  putStrLn "Welcome to the wled-json demo."
+  putStrLn "-----------------------------------------------------------------------"
+  args <- getArgs
+  mainLoop $ if null args then defaultWledUrl else head args
   where
-    wledUrl = "http://192.168.178.34"
+    mainLoop :: String -> IO ()
+    mainLoop wledUrl = do
+      putStrLn ""
+      putStrLn "1: Change URL for WLED device."
+      putStrLn "2: Run octolamp flags demo."
+      putStrLn "q: Quit."
+      putStrLn ""
+      putStr $ "(" ++ wledUrl ++ ") > "
+      choice <- getLine
+      case choice of
+        "1" -> do
+          putStrLn ""
+          putStr "Enter new URL: "
+          getLine >>= mainLoop
+        "2" -> do
+          putStrLn ""
+          putStrLn "Press [Enter] to stop demonstration."
+          lampState <- getLampState wledUrl
+          case lampState of
+            Left errMsg -> putStrLn errMsg
+            Right initialState -> do
+              void $ runExceptT $ flow $ waitForEnter @@ StdinClock |@| (animation >-> arrMCl (liftIO . void . setLampState wledUrl)) @@ liftClock @IO @(ExceptT ()) (waitClock @100)
+              Right currentState <- getLampState wledUrl
+              _ <- setLampState wledUrl (diff currentState initialState)
+              -- validate that initial state is restored
+              Right restoredState <- getLampState wledUrl
+              putStrLn $ "Initial state is restored: " <> show (initialState == restoredState)
+          mainLoop wledUrl
+        "q" -> pure ()
+        "Q" -> pure ()
+        _ -> do
+          putStrLn "Could not recognize option."
+          mainLoop wledUrl
+    defaultWledUrl :: String
+    defaultWledUrl = "http://192.168.178.34"
