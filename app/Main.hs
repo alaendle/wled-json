@@ -52,7 +52,7 @@ main = do
   putStrLn "Welcome to the wled-json demo."
   putStrLn "-----------------------------------------------------------------------"
   args <- getArgs
-  mainLoop $ if null args then defaultWledUrl else head args
+  mainLoop $ case args of (url:_) -> url; _ -> defaultWledUrl
   where
     mainLoop :: String -> IO ()
     mainLoop wledUrl = do
