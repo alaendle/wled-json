@@ -41,6 +41,7 @@ ghc-options:
 - -Wno-implicit-prelude
 - -Wno-missing-safe-haskell-mode
 - -Wno-safe
+- -Wno-missing-role-annotations
 
 library:
   source-dirs: src

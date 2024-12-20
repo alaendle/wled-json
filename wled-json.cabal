@@ -43,7 +43,7 @@ library
       Paths_wled_json
   hs-source-dirs:
       src
-  ghc-options: -O0 -Weverything -Wno-unsafe -Wno-missing-import-lists -Wno-prepositive-qualified-module -Wno-implicit-prelude -Wno-missing-safe-haskell-mode -Wno-safe
+  ghc-options: -O0 -Weverything -Wno-unsafe -Wno-missing-import-lists -Wno-prepositive-qualified-module -Wno-implicit-prelude -Wno-missing-safe-haskell-mode -Wno-safe -Wno-missing-role-annotations
   build-depends:
       aeson >=2.2.3 && <2.3
     , barbies >=2.0.5 && <2.2
@@ -61,7 +61,7 @@ executable wled-json-exe
       Paths_wled_json
   hs-source-dirs:
       app
-  ghc-options: -O0 -Weverything -Wno-unsafe -Wno-missing-import-lists -Wno-prepositive-qualified-module -Wno-implicit-prelude -Wno-missing-safe-haskell-mode -Wno-safe -threaded -rtsopts -with-rtsopts=-N
+  ghc-options: -O0 -Weverything -Wno-unsafe -Wno-missing-import-lists -Wno-prepositive-qualified-module -Wno-implicit-prelude -Wno-missing-safe-haskell-mode -Wno-safe -Wno-missing-role-annotations -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.7 && <5
     , rhine >=1.4.0.1 && <1.6
@@ -78,7 +78,7 @@ test-suite wled-json-test
       Paths_wled_json
   hs-source-dirs:
       test
-  ghc-options: -O0 -Weverything -Wno-unsafe -Wno-missing-import-lists -Wno-prepositive-qualified-module -Wno-implicit-prelude -Wno-missing-safe-haskell-mode -Wno-safe -threaded -rtsopts -with-rtsopts=-N
+  ghc-options: -O0 -Weverything -Wno-unsafe -Wno-missing-import-lists -Wno-prepositive-qualified-module -Wno-implicit-prelude -Wno-missing-safe-haskell-mode -Wno-safe -Wno-missing-role-annotations -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       QuickCheck
     , aeson
