@@ -1,0 +1,13 @@
+packages:
+  .
+
+tests: True
+
+if impl (ghc >= 9.12)
+  allow-newer:
+    , aeson:ghc-prim
+    , aeson:template-haskell
+    , automaton:base
+    , monad-schedule:base
+    , rhine:base
+    , time-domain:base
