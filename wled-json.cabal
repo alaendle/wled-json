@@ -13,7 +13,7 @@ homepage:       https://github.com/alaendle/wled-json#readme
 bug-reports:    https://github.com/alaendle/wled-json/issues
 author:         Andreas Ländle
 maintainer:     Andreas Ländle
-copyright:      2024 Andreas Ländle
+copyright:      2024-2025 Andreas Ländle
 license:        BSD-3-Clause
 license-file:   LICENSE
 build-type:     Simple

@@ -1,7 +1,7 @@
 
 {-|
 Module      : WLED.Octocat.Flags
-Copyright   : (c) Andreas Ländle, 2024
+Copyright   : (c) Andreas Ländle, 2024-2025
 License     : BSD-3
 Stability   : experimental
 

@@ -70,7 +70,7 @@ ghc-prim-0.11.0-BSD-3
 half-0.3.2-BSD3
 hashable-1.4.7.0-BSD3
 hourglass-0.2.12-BSD3
-http-client-0.7.17-MIT
+http-client-0.7.18-MIT
 http-client-tls-0.3.6.4-MIT
 http-conduit-2.3.9.1-BSD3
 http-types-0.12.4-BSD3
@@ -79,7 +79,7 @@ indexed-traversable-0.1.4-BSD2
 indexed-traversable-instances-0.1.2-BSD2
 integer-conversion-0.1.1-BSD3
 integer-gmp-1.1-BSD-3
-integer-logarithms-1.0.3.1-MIT
+integer-logarithms-1.0.4-MIT
 iproute-1.7.15-BSD3
 memory-0.18.0-BSD3
 mime-types-0.1.2.0-MIT
@@ -116,7 +116,7 @@ simple-affine-space-0.2.1-BSD3
 socks-0.6.1-BSD3
 sop-core-0.5.0.2-BSD3
 split-0.2.5-BSD3
-splitmix-0.1.0.5-BSD3
+splitmix-0.1.1-BSD3
 stm-2.5.3.1-BSD-3
 streaming-commons-0.2.2.6-MIT
 strict-0.5.1-BSD3

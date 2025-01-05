@@ -4,7 +4,7 @@ github:              "alaendle/wled-json"
 license:             BSD-3-Clause
 author:              "Andreas Ländle"
 #maintainer:          "example@example.com"
-copyright:           "2024 Andreas Ländle"
+copyright:           "2024-2025 Andreas Ländle"
 
 extra-source-files:
 - README.md
