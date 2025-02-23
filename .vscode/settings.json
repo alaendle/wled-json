@@ -1,6 +1,7 @@
 {
     "haskell.formattingProvider": "stylish-haskell",
     "cSpell.words": [
+        "Octocat",
         "Octolamp",
         "WLED"
     ]

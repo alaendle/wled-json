@@ -37,6 +37,7 @@ library
   exposed-modules:
       WLED.Device
       WLED.Octocat.Flags
+      WLED.Octocat.Octocat
       WLED.Types
   other-modules:
       Paths_wled_json
