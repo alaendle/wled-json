@@ -6,6 +6,10 @@ The project adheres to the [Haskell Package Versioning Policy](https://pvp.haske
 
 ## Unreleased
 
+- Separate lamp specification from WLED interaction - so that own designs could be integrated.
+
+## 0.0.1.1 - Provide demonstration - 2025-03-28
+
 - Demonstration:
   - Added menu and option to change wled device URL via terminal or command line argument
   - Added tool to traverse every single LED (to be able to better detect positions)

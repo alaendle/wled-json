@@ -8,64 +8,71 @@ Stability   : experimental
 Module containing flags.
 -}
 
-module WLED.Pattern.Flags(belgium, cameroon, chad, france, guatemala, guinea, ireland, italy, ivoryCoast, mali, nigeria, peru) where
+module WLED.Pattern.Flags(bulgaria, belgium, cameroon, chad, france, guatemala, guinea, ireland, italy, ivoryCoast, mali, nigeria, peru) where
 
-import           Data.List            (group)
-import           WLED.LampSpec          (LampSpec (LampSpec))
-import           WLED.Lamp.Octocat (octocatSpec)
-import           WLED.Types
+import           Data.List     (group)
+import           WLED.LampSpec (LampSpec (LampSpec))
+import           WLED.Types    (State (stateSeg), StatePatch, segment)
 
 -- | The Belgian flag.
-belgium :: StatePatch
+belgium :: Real a => LampSpec a -> StatePatch
 belgium = threeVerticalStripes ral9017 ral2007 ral3028
 
 -- | The Cameroonian flag.
-cameroon :: StatePatch
+cameroon :: Real a => LampSpec a -> StatePatch
 cameroon = threeVerticalStripes ral6024 ral3028 ral1018
 
 -- | The Chad flag.
-chad :: StatePatch
+chad :: Real a => LampSpec a -> StatePatch
 chad = threeVerticalStripes ral5026 ral2007 ral3028
 
 -- | The French flag.
-france :: StatePatch
+france :: Real a => LampSpec a -> StatePatch
 france = threeVerticalStripes ral5002 white ral3020
 
 -- | The Guatemalan flag.
-guatemala :: StatePatch
+guatemala :: Real a => LampSpec a -> StatePatch
 guatemala = threeVerticalStripes ral5012 white ral5012
 
 -- | The Guinean flag.
-guinea :: StatePatch
+guinea :: Real a => LampSpec a -> StatePatch
 guinea = threeVerticalStripes ral3028 ral1018 ral6024
 
 -- | The Irish flag.
-ireland :: StatePatch
+ireland :: Real a => LampSpec a -> StatePatch
 ireland = threeVerticalStripes ral6024 white ral1028
 
 -- | The Italian flag.
-italy :: StatePatch
+italy :: Real a => LampSpec a -> StatePatch
 italy = threeVerticalStripes ral6024 ral9016 ral3028
 
 -- | The Ivory Coast flag.
-ivoryCoast :: StatePatch
+ivoryCoast :: Real a => LampSpec a -> StatePatch
 ivoryCoast = threeVerticalStripes ral1028 white ral6024
 
 -- | The Malian flag.
-mali :: StatePatch
+mali :: Real a => LampSpec a -> StatePatch
 mali = threeVerticalStripes ral6038 ral1018 ral3028
 
 -- | The Nigerian flag.
-nigeria :: StatePatch
+nigeria :: Real a => LampSpec a -> StatePatch
 nigeria = threeVerticalStripes ral6001 white ral6001
 
 -- | The Peruvian flag.
-peru :: StatePatch
+peru :: Real a => LampSpec a -> StatePatch
 peru = threeVerticalStripes ral3028 white ral3028
 
-threeVerticalStripes :: [Int] -> [Int] -> [Int] -> StatePatch
-threeVerticalStripes leftColor middleColor rightColor = (mempty :: StatePatch) { stateSeg = segments } where
-        segments = Just $ (\(start, stop, index) -> segment start stop ([leftColor, middleColor, rightColor] !! index)) <$> buildSegments (verticalLayer octocatSpec 3)
+-- | The Bulgarian flag.
+bulgaria :: Real a => LampSpec a -> StatePatch
+bulgaria = threeHorizontalStripes white ral5021 ral3028
+
+threeVerticalStripes :: Real a => [Int] -> [Int] -> [Int] -> LampSpec a -> StatePatch
+threeVerticalStripes leftColor middleColor rightColor lampSpec = (mempty :: StatePatch) { stateSeg = segments } where
+        segments = Just $ (\(start, stop, index) -> segment start stop ([leftColor, middleColor, rightColor] !! index)) <$> buildSegments (verticalLayer lampSpec 3)
+
+threeHorizontalStripes :: Real a => [Int] -> [Int] -> [Int] -> LampSpec a -> StatePatch
+threeHorizontalStripes topColor middleColor buttomColor lampSpec = (mempty :: StatePatch) { stateSeg = segments } where
+        segments = Just $ (\(start, stop, index) -> segment start stop ([topColor, middleColor, buttomColor] !! index)) <$> buildSegments (horizontalLayer lampSpec 3)
 
 -- >>> length <$> (group $ horizontalLayer (LampSpec lightPositions (100,100)) 3)
 -- [8,4,15,4,14,4,12,4,8,6,7,6,9]
@@ -106,6 +113,9 @@ ral5002 = [0,0,145]
 
 ral5012 :: [Int]
 ral5012 = [73, 151, 208]
+
+ral5021 :: [Int]
+ral5021 = [0, 150, 110]
 
 ral5026 :: [Int]
 ral5026 = [0, 38, 100]
