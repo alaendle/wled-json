@@ -15,7 +15,7 @@ import           FRP.Rhine
 import           System.Environment (getArgs)
 import           System.IO          (BufferMode (NoBuffering), hSetBuffering, stdout)
 import           WLED.Device
-import           WLED.Octocat.Flags (belgium, cameroon, chad, france, guatemala, guinea, ireland, italy, ivoryCoast, mali, nigeria, peru)
+import           WLED.Pattern.Flags (belgium, cameroon, chad, france, guatemala, guinea, ireland, italy, ivoryCoast, mali, nigeria, peru)
 import           WLED.Types
 
 waitForEnter :: ClSF (ExceptT () IO) StdinClock () ()

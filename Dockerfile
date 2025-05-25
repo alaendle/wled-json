@@ -1,4 +1,4 @@
-FROM fpco/stack-build-small:lts-23.3
+FROM fpco/stack-build-small:lts-23.23
 
 # Cache compiler
 RUN stack setup 9.8.4 && \

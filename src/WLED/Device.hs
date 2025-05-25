@@ -1,6 +1,5 @@
 {-# LANGUAGE OverloadedStrings        #-}
 {-# LANGUAGE ScopedTypeVariables      #-}
-{-# LANGUAGE StandaloneKindSignatures #-}
 
 {-|
 Module      : WLED.Device
@@ -14,12 +13,10 @@ Interacting with the WLED device.
 module WLED.Device
     ( getLampState,
       setLampState,
-      DeviceSpec(..)
     ) where
 
 import           Data.Aeson                  (eitherDecodeStrict, encode)
 import           Data.ByteString             (ByteString, toStrict)
-import           Data.Kind                   (Type)
 import           Network.HTTP.Client.Conduit (Request (method), path)
 import           Network.HTTP.Simple         (getResponseBody, httpBS, parseRequest, setRequestBodyJSON)
 import           WLED.Types                  (StateComplete, StatePatch)
@@ -57,6 +54,3 @@ setLampState wledUrl patch =
       req <- parseRequest wledUrl
       res <- httpBS $ setRequestBodyJSON patch req { method = "POST", path = "json/state" }
       pure (toStrict body, getResponseBody res)
-
-type DeviceSpec :: Type -> Type
-data DeviceSpec a = DeviceSpec { positions :: [(a, a)], size :: (a, a) }

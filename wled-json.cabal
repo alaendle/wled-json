@@ -36,8 +36,9 @@ source-repository head
 library
   exposed-modules:
       WLED.Device
-      WLED.Octocat.Flags
-      WLED.Octocat.Octocat
+      WLED.Lamp.Octocat
+      WLED.LampSpec
+      WLED.Pattern.Flags
       WLED.Types
   other-modules:
       Paths_wled_json

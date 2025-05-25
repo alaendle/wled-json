@@ -1,9 +1,9 @@
-module WLED.Octocat.Octocat(deviceSpec) where
+module WLED.Lamp.Octocat(octocatSpec) where
 
-import WLED.Device (DeviceSpec (DeviceSpec))
+import WLED.LampSpec (LampSpec (..))
 
-deviceSpec :: DeviceSpec Int
-deviceSpec = DeviceSpec lightPositions (100,100)
+octocatSpec :: LampSpec Int
+octocatSpec = LampSpec { positions = lightPositions, size = (100, 100) }
 
 -- >>> length lightPositions
 -- 101

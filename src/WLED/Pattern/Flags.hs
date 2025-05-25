@@ -1,18 +1,18 @@
 
 {-|
-Module      : WLED.Octocat.Flags
+Module      : WLED.Pattern.Flags
 Copyright   : (c) Andreas Ländle, 2024-2025
 License     : BSD-3
 Stability   : experimental
 
-Octolamp specific feature to display flags.
+Module containing flags.
 -}
 
-module WLED.Octocat.Flags(belgium, cameroon, chad, france, guatemala, guinea, ireland, italy, ivoryCoast, mali, nigeria, peru) where
+module WLED.Pattern.Flags(belgium, cameroon, chad, france, guatemala, guinea, ireland, italy, ivoryCoast, mali, nigeria, peru) where
 
 import           Data.List            (group)
-import           WLED.Device          (DeviceSpec (DeviceSpec))
-import           WLED.Octocat.Octocat (deviceSpec)
+import           WLED.LampSpec          (LampSpec (LampSpec))
+import           WLED.Lamp.Octocat (octocatSpec)
 import           WLED.Types
 
 -- | The Belgian flag.
@@ -65,19 +65,19 @@ peru = threeVerticalStripes ral3028 white ral3028
 
 threeVerticalStripes :: [Int] -> [Int] -> [Int] -> StatePatch
 threeVerticalStripes leftColor middleColor rightColor = (mempty :: StatePatch) { stateSeg = segments } where
-        segments = Just $ (\(start, stop, index) -> segment start stop ([leftColor, middleColor, rightColor] !! index)) <$> buildSegments (verticalLayer deviceSpec 3)
+        segments = Just $ (\(start, stop, index) -> segment start stop ([leftColor, middleColor, rightColor] !! index)) <$> buildSegments (verticalLayer octocatSpec 3)
 
--- >>> length <$> (group $ horizontalLayer (DeviceSpec lightPositions (100,100)) 3)
+-- >>> length <$> (group $ horizontalLayer (LampSpec lightPositions (100,100)) 3)
 -- [8,4,15,4,14,4,12,4,8,6,7,6,9]
-horizontalLayer :: Real a => DeviceSpec a -> Int -> [Int]
-horizontalLayer (DeviceSpec pos (_, sy)) n = fmap (\(_, y) -> floor (toRational  y / toRational sy * toRational n)) pos
+horizontalLayer :: Real a => LampSpec a -> Int -> [Int]
+horizontalLayer (LampSpec pos (_, sy)) n = fmap (\(_, y) -> floor (toRational  y / toRational sy * toRational n)) pos
 
--- >>> length <$> (group $ verticalLayer (DeviceSpec lightPositions (100,100)) 3)
+-- >>> length <$> (group $ verticalLayer (LampSpec lightPositions (100,100)) 3)
 -- [3,14,4,15,4,13,4,12,6,5,4,7,3,4,3]
-verticalLayer :: Real a => DeviceSpec a -> Int -> [Int]
-verticalLayer (DeviceSpec pos (sx, _)) n = fmap (\(x, _) -> floor (toRational  x / toRational sx * toRational n)) pos
+verticalLayer :: Real a => LampSpec a -> Int -> [Int]
+verticalLayer (LampSpec pos (sx, _)) n = fmap (\(x, _) -> floor (toRational  x / toRational sx * toRational n)) pos
 
--- >>> buildSegments $ verticalLayer (DeviceSpec lightPositions (100,100)) 3
+-- >>> buildSegments $ verticalLayer (LampSpec lightPositions (100,100)) 3
 -- [(0,3,1),(3,17,2),(17,21,1),(21,36,0),(36,40,1),(40,53,0),(53,57,1),(57,69,2),(69,75,1),(75,80,2),(80,84,1),(84,91,0),(91,94,1),(94,98,0),(98,101,1)]
 buildSegments :: [Int] -> [(Int, Int, Int)]
 buildSegments =  step 0 . group where
