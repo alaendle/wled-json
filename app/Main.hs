@@ -62,7 +62,7 @@ main = do
       putStrLn "3: Traverse single LED."
       putStrLn "q: Quit."
       putStrLn ""
-      putStr $ "(" ++ wledUrl ++ ") > "
+      putStr $ "(" <> wledUrl <> ") > "
       choice <- getLine
       case choice of
         "1" -> do
@@ -72,12 +72,12 @@ main = do
         "2" -> do
           putStrLn ""
           putStrLn "Press [Enter] to stop demonstration."
-          localLampState wledUrl $ void $ runExceptT $ flow $ waitForEnter @@ StdinClock |@| (animation >-> arrMCl (liftIO . void . setLampState wledUrl)) @@ liftClock @IO @(ExceptT ()) (waitClock @100)
+          localLampState wledUrl . void . runExceptT . flow $ waitForEnter @@ StdinClock |@| (animation >-> arrMCl (liftIO . void . setLampState wledUrl)) @@ liftClock @IO @(ExceptT ()) (waitClock @100)
           mainLoop wledUrl
         "3" -> do
           putStrLn ""
           putStrLn "Press [Enter] to stop traversal."
-          localLampState wledUrl $ void $ runExceptT $ flow $ waitForEnter @@ StdinClock |@| (traverseLed >-> arrMCl (liftIO . void . setLampState wledUrl)) @@ liftClock @IO @(ExceptT ()) (waitClock @100)
+          localLampState wledUrl . void . runExceptT . flow $ waitForEnter @@ StdinClock |@| (traverseLed >-> arrMCl (liftIO . void . setLampState wledUrl)) @@ liftClock @IO @(ExceptT ()) (waitClock @100)
           mainLoop wledUrl
         "q" -> pure ()
         "Q" -> pure ()
