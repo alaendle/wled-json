@@ -1,6 +1,6 @@
 module WLED.Lamp.Octocat(octocatSpec) where
 
-import WLED.LampSpec (LampSpec (..))
+import           WLED.LampSpec (LampSpec (..))
 
 octocatSpec :: LampSpec Int
 octocatSpec = LampSpec { positions = lightPositions, size = (100, 100) }

@@ -1,5 +1,5 @@
-{-# LANGUAGE OverloadedStrings        #-}
-{-# LANGUAGE ScopedTypeVariables      #-}
+{-# LANGUAGE OverloadedStrings   #-}
+{-# LANGUAGE ScopedTypeVariables #-}
 
 {-|
 Module      : WLED.Device
@@ -12,7 +12,7 @@ Interacting with the WLED device.
 
 module WLED.Device
     ( getLampState,
-      setLampState,
+      setLampState
     ) where
 
 import           Data.Aeson                  (eitherDecodeStrict, encode)
