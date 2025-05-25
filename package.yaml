@@ -54,7 +54,7 @@ library:
   - http-conduit >= 2.3.9.1 && < 2.4
 
 executables:
-  wled-json-exe:
+  wled-json-demo:
     main:                Main.hs
     source-dirs:         app
     ghc-options:
@@ -64,6 +64,15 @@ executables:
     dependencies:
     - wled-json
     - rhine >= 1.4.0.1 && < 1.6
+  wled-json-simple:
+    main:                Main.hs
+    source-dirs:         app-simple
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - wled-json
 
 tests:
   wled-json-test:

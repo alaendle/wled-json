@@ -13,23 +13,14 @@ This Haskell library provides a convenient interface for interacting with WLED d
 - **Color:** Set the color of your lights using various color spaces (RGB, HSV, etc.)
 - **Brightness:** Adjust the overall brightness of your lights
 
-## Installation ⚙️
-
-```bash
-# Using cabal
-cabal add wled-json
-
-# Using stack
-stack add wled-json
-```
-
 ## Usage 📲
 
 ```haskell
-import           Control.Concurrent
-import           WLED.Device
-import           WLED.Octocat.Flags (france)
-import           WLED.Types
+import           Control.Concurrent (threadDelay)
+import           WLED.Device        (getLampState, setLampState)
+import           WLED.Lamp.Octocat  (octocatSpec)
+import           WLED.Pattern.Flags (bulgaria)
+import           WLED.Types         (diff)
 
 main :: IO ()
 main = do
@@ -38,19 +29,18 @@ main = do
     case lampState of
         Left errMsg -> putStrLn errMsg
         Right initialState -> do
-            -- Display the French flag on an Octolamp
-            _ <- setLampState wledUrl france
+            -- Display the Bulgarian flag on an Octolamp
+            _ <- setLampState wledUrl (bulgaria octocatSpec)
 
-            -- Just sleep one second
-            threadDelay 1000000
-            
+            -- Just sleep five seconds
+            threadDelay 5000000
+
             -- Restore the initial state
             Right currentState <- getLampState wledUrl
             _ <- setLampState wledUrl (diff currentState initialState)
             pure ()
   where
     wledUrl = "http://192.168.178.34"
-
 ```
 
 ## Features 👍
@@ -59,6 +49,7 @@ main = do
 - Type-safe interactions
 - Easy-to-use API
 - Specific support for Octolamps
+- Reusable pattern for other lamp designs
 
 ## Contributing 🤝
 
