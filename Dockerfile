@@ -1,9 +1,9 @@
-FROM fpco/stack-build-small:lts-23.23
+FROM fpco/stack-build-small:lts-23.24
 
 # Cache compiler
 RUN stack setup 9.8.4 && \
-    stack install stylish-haskell && \
-    stack install hlint weeder
+    stack install stylish-haskell hlint weeder && \
+    wget --progress=dot:giga https://github.com/hadolint/hadolint/releases/download/v2.12.0/hadolint-Linux-x86_64 -O /bin/hadolint && chmod +x /bin/hadolint
 
 # Cache dependencies
 WORKDIR /app
@@ -21,5 +21,6 @@ RUN diff <(stack ls dependencies --filter \$locals --license | cut -d" " -f2 | L
 
 # Check that all code is formatted and used
 RUN stylish-haskell -i -r . && git diff --exit-code
-RUN hlint .
-RUN weeder --hie-directory=.stack-work
+RUN hlint . && \
+    hadolint Dockerfile && \
+    weeder --hie-directory=.stack-work
