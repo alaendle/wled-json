@@ -54,4 +54,3 @@ setLampState wledUrl patch =
       req <- parseRequest wledUrl
       res <- httpBS $ setRequestBodyJSON patch req { method = "POST", path = "json/state" }
       pure (toStrict body, getResponseBody res)
-

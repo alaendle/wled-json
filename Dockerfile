@@ -1,9 +1,9 @@
-FROM fpco/stack-build-small:lts-23.3
+FROM fpco/stack-build-small:lts-23.23
 
 # Cache compiler
 RUN stack setup 9.8.4 && \
     stack install stylish-haskell && \
-    stack install hlint
+    stack install hlint weeder
 
 # Cache dependencies
 WORKDIR /app
@@ -19,6 +19,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN diff <(paste -d - <(stack ls dependencies --filter \$locals --separator -) <(stack ls dependencies --filter \$locals --license | cut -d" " -f2)) stack_sbom.txt
 RUN diff <(stack ls dependencies --filter \$locals --license | cut -d" " -f2 | LC_ALL=C sort | uniq) stack_licenses.txt
 
-# Check that all code is formatted
+# Check that all code is formatted and used
 RUN stylish-haskell -i -r . && git diff --exit-code
 RUN hlint .
+RUN weeder --hie-directory=.stack-work

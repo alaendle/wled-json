@@ -1,0 +1,6 @@
+roots = [ "^Main.main$"
+        , "^Paths_wled_json\\..*"
+        , "WLED.Types.append$"
+        ]
+
+type-class-roots = true

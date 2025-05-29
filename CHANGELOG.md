@@ -6,7 +6,7 @@ The project adheres to the [Haskell Package Versioning Policy](https://pvp.haske
 
 ## Unreleased
 
-- Awesome upcoming features!
+- Separate lamp specification from WLED interaction - so that own designs could be integrated.
 
 ## 0.0.1.1 - Small cosmetic improvements - 2025-03-28
 

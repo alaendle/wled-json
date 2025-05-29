@@ -15,7 +15,8 @@ import           FRP.Rhine
 import           System.Environment (getArgs)
 import           System.IO          (BufferMode (NoBuffering), hSetBuffering, stdout)
 import           WLED.Device
-import           WLED.Octocat.Flags (belgium, cameroon, chad, france, guatemala, guinea, ireland, italy, ivoryCoast, mali, nigeria, peru)
+import           WLED.Lamp.Octocat  (octocatSpec)
+import           WLED.Pattern.Flags (belgium, bulgaria, cameroon, chad, france, guatemala, guinea, ireland, italy, ivoryCoast, mali, nigeria, peru)
 import           WLED.Types
 
 waitForEnter :: ClSF (ExceptT () IO) StdinClock () ()
@@ -34,7 +35,7 @@ brightnessSinus frequency = sinusWave 0 255 frequency >-> arr (\bri -> (mempty :
 
 switchFlags :: Monad m => Double -> ClSF m cl Double StatePatch
 switchFlags frequency = arr (\t -> allFlags !! (floor (t * frequency) `mod` length allFlags)) where
-  allFlags = [belgium, cameroon, chad, france, guatemala, guinea, ireland, italy, ivoryCoast, mali, nigeria, peru]
+  allFlags = ($ octocatSpec) <$> [bulgaria, belgium, cameroon, chad, france, guatemala, guinea, ireland, italy, ivoryCoast, mali, nigeria, peru]
 
 animation :: (Monad m, TimeDomain (Time cl), Diff (Time cl) ~ Double) => ClSF m cl () StatePatch
 animation = sinceStart >-> proc time -> do
@@ -62,7 +63,7 @@ main = do
       putStrLn "3: Traverse single LED."
       putStrLn "q: Quit."
       putStrLn ""
-      putStr $ "(" ++ wledUrl ++ ") > "
+      putStr $ "(" <> wledUrl <> ") > "
       choice <- getLine
       case choice of
         "1" -> do
@@ -72,12 +73,12 @@ main = do
         "2" -> do
           putStrLn ""
           putStrLn "Press [Enter] to stop demonstration."
-          localLampState wledUrl $ void $ runExceptT $ flow $ waitForEnter @@ StdinClock |@| (animation >-> arrMCl (liftIO . void . setLampState wledUrl)) @@ liftClock @IO @(ExceptT ()) (waitClock @100)
+          localLampState wledUrl . void . runExceptT . flow $ waitForEnter @@ StdinClock |@| (animation >-> arrMCl (liftIO . void . setLampState wledUrl)) @@ liftClock @IO @(ExceptT ()) (waitClock @100)
           mainLoop wledUrl
         "3" -> do
           putStrLn ""
           putStrLn "Press [Enter] to stop traversal."
-          localLampState wledUrl $ void $ runExceptT $ flow $ waitForEnter @@ StdinClock |@| (traverseLed >-> arrMCl (liftIO . void . setLampState wledUrl)) @@ liftClock @IO @(ExceptT ()) (waitClock @100)
+          localLampState wledUrl . void . runExceptT . flow $ waitForEnter @@ StdinClock |@| (traverseLed >-> arrMCl (liftIO . void . setLampState wledUrl)) @@ liftClock @IO @(ExceptT ()) (waitClock @100)
           mainLoop wledUrl
         "q" -> pure ()
         "Q" -> pure ()

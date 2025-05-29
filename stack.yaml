@@ -17,7 +17,7 @@
 #
 # snapshot: ./custom-snapshot.yaml
 # snapshot: https://example.com/snapshots/2023-01-01.yaml
-snapshot: lts-23.3
+snapshot: lts-23.23
 
 # User packages to be built.
 # Various formats can be used as shown in the example below.
@@ -64,3 +64,6 @@ extra-deps: []
 #
 # Allow a newer minor version of GHC than the snapshot specifies
 # compiler-check: newer-minor
+
+ghc-options:
+  "$locals": -fwrite-ide-info

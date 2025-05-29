@@ -1,6 +1,6 @@
 cabal-version: 2.2
 
--- This file has been generated from package.yaml by hpack version 0.37.0.
+-- This file has been generated from package.yaml by hpack version 0.38.0.
 --
 -- see: https://github.com/sol/hpack
 
@@ -20,10 +20,10 @@ build-type:     Simple
 tested-with:
     GHC == 9.2.8
   , GHC == 9.4.8
-  , GHC == 9.6.6
+  , GHC == 9.6.7
   , GHC == 9.8.4
-  , GHC == 9.10.1
-  , GHC == 9.12.1
+  , GHC == 9.10.2
+  , GHC == 9.12.2
 extra-source-files:
     README.md
 extra-doc-files:
@@ -36,7 +36,9 @@ source-repository head
 library
   exposed-modules:
       WLED.Device
-      WLED.Octocat.Flags
+      WLED.Lamp.Octocat
+      WLED.LampSpec
+      WLED.Pattern.Flags
       WLED.Types
   other-modules:
       Paths_wled_json
@@ -54,7 +56,7 @@ library
     , http-conduit >=2.3.9.1 && <2.4
   default-language: Haskell2010
 
-executable wled-json-exe
+executable wled-json-demo
   main-is: Main.hs
   other-modules:
       Paths_wled_json
@@ -66,6 +68,20 @@ executable wled-json-exe
   build-depends:
       base >=4.7 && <5
     , rhine >=1.4.0.1 && <1.6
+    , wled-json
+  default-language: Haskell2010
+
+executable wled-json-simple
+  main-is: Main.hs
+  other-modules:
+      Paths_wled_json
+  autogen-modules:
+      Paths_wled_json
+  hs-source-dirs:
+      app-simple
+  ghc-options: -O0 -Weverything -Wno-unsafe -Wno-missing-import-lists -Wno-prepositive-qualified-module -Wno-implicit-prelude -Wno-missing-safe-haskell-mode -Wno-safe -Wno-missing-role-annotations -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base >=4.7 && <5
     , wled-json
   default-language: Haskell2010
 
