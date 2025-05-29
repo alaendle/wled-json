@@ -1,5 +1,5 @@
 name:                wled-json
-version:             0.0.1.1
+version:             0.1.0.0
 github:              "alaendle/wled-json"
 license:             BSD-3-Clause
 author:              "Andreas Ländle"
