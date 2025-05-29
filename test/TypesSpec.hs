@@ -46,8 +46,8 @@ prop_associativity a b c = (a <> b) <> c == a <> (b <> c)
 prop_identity :: StatePatch -> Bool
 prop_identity a = mempty <> a == a && a <> mempty == a
 
-prop :: StateComplete -> StatePatch -> Bool
-prop c p = c == append c (diff (append c p) c)
+prop_appendInverse :: StateComplete -> StatePatch -> Bool
+prop_appendInverse c p = c == append c (diff (append c p) c)
 
 prop_appendIdentity :: StateComplete -> Bool
 prop_appendIdentity c = append c mempty == c
@@ -81,8 +81,8 @@ spec = do
         let complete :: StateComplete = State True 255 0 0 0 (Nightlight False 0 0 0 0) 0 0 []
         let patch :: StatePatch = (mempty :: StatePatch) { stateSeg = Just [(mempty :: SegmentPatch) { segmentBri = Just 255 }] }
         append complete patch `shouldBe` complete
-      it "append/diff" $
-        property prop
+      it "diff generates an inverse patch that applied with append reverses the original patch" $
+        property prop_appendInverse
       it "delete_segments" $ do
         let c1 :: StateComplete = State {stateOn = False, stateBri = 1, stateTransition = 1, statePs = 1, statePl = 0, stateNl = Nightlight {nightlightOn = True, nightlightDur = 0, nightlightMode = -1, nightlightTbri = -1, nightlightRem = -1}, stateLor = 0, stateMainseg = -1, stateSeg = [Segment {segmentId = 0, segmentStart = 1, segmentStop = -1, segmentLen = -1, segmentGrp = 0, segmentSpc = 1, segmentOf = 0, segmentOn = True, segmentFrz = True, segmentBri = -1, segmentCct = 1, segmentSet = 0, segmentCol = [], segmentFx = 0, segmentSx = 1, segmentIx = -1, segmentPal = 0, segmentC1 = 0, segmentC2 = -1, segmentC3 = 0, segmentSel = False, segmentRev = False, segmentMi = False, segmentO1 = False, segmentO2 = True, segmentO3 = False, segmentSi = -1, segmentM12 = -1}]}
         let c2 :: StateComplete = State {stateOn = False, stateBri = 1, stateTransition = 1, statePs = 1, statePl = 0, stateNl = Nightlight {nightlightOn = True, nightlightDur = 0, nightlightMode = -1, nightlightTbri = -1, nightlightRem = -1}, stateLor = 0, stateMainseg = -1, stateSeg = []}
