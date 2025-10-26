@@ -8,6 +8,10 @@ The project adheres to the [Haskell Package Versioning Policy](https://pvp.haske
 
 - Awesome upcoming features!
 
+## 0.1.0.1 - Keep compatibility with ghc 9.2/9.4 - 2025-10-26
+
+- Keep compatibility with ghc 9.2/9.4.
+
 ## 0.1.0.0 - Support differently designed lamps - 2025-05-29
 
 - Separate lamp specification from WLED interaction - so that own designs could be integrated.
