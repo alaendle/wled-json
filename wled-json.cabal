@@ -1,6 +1,6 @@
 cabal-version: 2.2
 
--- This file has been generated from package.yaml by hpack version 0.38.0.
+-- This file has been generated from package.yaml by hpack version 0.38.1.
 --
 -- see: https://github.com/sol/hpack
 
@@ -22,7 +22,7 @@ tested-with:
   , GHC == 9.4.8
   , GHC == 9.6.7
   , GHC == 9.8.4
-  , GHC == 9.10.2
+  , GHC == 9.10.3
   , GHC == 9.12.2
 extra-source-files:
     README.md
@@ -55,6 +55,9 @@ library
     , deriving-aeson >=0.2.9 && <0.3
     , http-conduit >=2.3.9.1 && <2.4
   default-language: Haskell2010
+  if impl(ghc < 9.6)
+    build-depends:
+        crypton-x509-store <1.6.12
 
 executable wled-json-demo
   main-is: Main.hs

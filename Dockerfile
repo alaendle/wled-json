@@ -1,8 +1,8 @@
-FROM benz0li/ghc-musl:9.10.2
+FROM benz0li/ghc-musl:9.10.3
 
 # Cache compiler
-RUN stack install stylish-haskell hlint weeder --resolver=lts-24.0 --system-ghc --allow-newer && \
-    wget --progress=dot:giga https://github.com/hadolint/hadolint/releases/download/v2.12.0/hadolint-Linux-x86_64 -O /bin/hadolint && chmod +x /bin/hadolint
+RUN stack install stylish-haskell hlint weeder --resolver=lts-24.16 --system-ghc --allow-newer && \
+    wget --progress=dot:giga https://github.com/hadolint/hadolint/releases/download/v2.14.0/hadolint-Linux-x86_64 -O /bin/hadolint && chmod +x /bin/hadolint
 
 # Cache dependencies
 WORKDIR /app
