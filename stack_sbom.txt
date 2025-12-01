@@ -45,7 +45,7 @@ crypton-1.0.4-BSD3
 crypton-connection-0.4.5-BSD3
 crypton-socks-0.6.2-BSD3
 crypton-x509-1.7.7-BSD3
-crypton-x509-store-1.6.11-BSD3
+crypton-x509-store-1.6.12-BSD3
 crypton-x509-system-1.6.7-BSD3
 crypton-x509-validation-1.6.14-BSD3
 data-default-0.8.0.1-BSD3
@@ -116,7 +116,7 @@ sop-core-0.5.0.2-BSD3
 split-0.2.5-BSD3
 splitmix-0.1.3.1-BSD3
 stm-2.5.3.1-BSD-3
-streaming-commons-0.2.3.0-MIT
+streaming-commons-0.2.3.1-MIT
 strict-0.5.1-BSD3
 tagged-0.8.9-BSD3
 tasty-1.5.3-MIT
