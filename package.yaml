@@ -67,7 +67,7 @@ executables:
     - -with-rtsopts=-N
     dependencies:
     - wled-json
-    - rhine >= 1.4.0.1 && < 1.6
+    - rhine >= 1.4.0.1 && < 1.7
   wled-json-simple:
     main:                Main.hs
     source-dirs:         app-simple
