@@ -8,6 +8,10 @@ The project adheres to the [Haskell Package Versioning Policy](https://pvp.haske
 
 - Awesome upcoming features!
 
+## 0.1.0.2 - Allow `rhine-1.6` - 2025-12-01
+
+- Allow `rhine-1.6`.
+
 ## 0.1.0.1 - Keep compatibility with ghc 9.2/9.4 - 2025-10-26
 
 - Keep compatibility with ghc 9.2/9.4.

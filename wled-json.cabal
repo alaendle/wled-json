@@ -5,7 +5,7 @@ cabal-version: 2.2
 -- see: https://github.com/sol/hpack
 
 name:           wled-json
-version:        0.1.0.1
+version:        0.1.0.2
 synopsis:       Convenient interface for interacting with WLED devices
 description:    Please see the README on GitHub at <https://github.com/alaendle/wled-json#readme>
 category:       Interfaces
@@ -13,7 +13,7 @@ homepage:       https://github.com/alaendle/wled-json#readme
 bug-reports:    https://github.com/alaendle/wled-json/issues
 author:         Andreas Ländle
 maintainer:     Andreas Ländle
-copyright:      2024-2025 Andreas Ländle
+copyright:      2024-2026 Andreas Ländle
 license:        BSD-3-Clause
 license-file:   LICENSE
 build-type:     Simple
