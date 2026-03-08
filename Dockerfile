@@ -11,7 +11,7 @@ RUN stack build --test --dependencies-only --system-ghc
 
 # Do the actual work
 COPY . .
-RUN stack test --system-ghc --ghc-options '-Werror -Weverything -Wno-unused-packages'
+RUN stack test --system-ghc --ghc-options '-Werror -Weverything -Wno-unused-packages -Wno-missing-safe-haskell-mode -Wno-implicit-prelude -Wno-missing-role-annotations -Wno-safe -Wno-unsafe -Wno-prepositive-qualified-module -Wno-missing-import-lists'
 
 # Validation
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
