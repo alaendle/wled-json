@@ -1,7 +1,7 @@
 FROM benz0li/ghc-musl:9.10.3
 
 # Cache compiler
-RUN stack install stylish-haskell hlint weeder --resolver=lts-24.16 --system-ghc --allow-newer && \
+RUN stack install stylish-haskell hlint weeder --resolver=lts-24.33 --system-ghc --allow-newer && \
     wget --progress=dot:giga https://github.com/hadolint/hadolint/releases/download/v2.14.0/hadolint-Linux-x86_64 -O /bin/hadolint && chmod +x /bin/hadolint
 
 # Cache dependencies
@@ -11,7 +11,7 @@ RUN stack build --test --dependencies-only --system-ghc
 
 # Do the actual work
 COPY . .
-RUN stack test --system-ghc --ghc-options '-Werror'
+RUN stack test --system-ghc --ghc-options '-Werror -Weverything -Wno-unused-packages'
 
 # Validation
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]

@@ -54,8 +54,12 @@ library:
   - http-conduit >= 2.3.9.1 && < 2.4
   when:
   - condition: impl(ghc < 9.6)
-    dependencies:
-    - crypton-x509-store < 1.6.12 # no 'cloexec'
+    then:
+      dependencies:
+      - crypton-x509-store < 1.6.12 # no 'cloexec'
+    else:
+      dependencies:
+      - crypton < 1.1.0 # 'ram' / 'memory' mismatch
 
 executables:
   wled-json-demo:
