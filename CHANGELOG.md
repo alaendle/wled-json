@@ -8,6 +8,10 @@ The project adheres to the [Haskell Package Versioning Policy](https://pvp.haske
 
 - Awesome upcoming features!
 
+## 0.1.0.3 - Restrict `crypton <1.1.0` - 2026-08-03
+
+- Restrict `crypton <1.1.0`.
+
 ## 0.1.0.2 - Allow `rhine-1.6` - 2025-12-01
 
 - Allow `rhine-1.6`.
