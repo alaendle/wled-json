@@ -30,7 +30,8 @@ tested-with:
 - GHC == 9.6.7
 - GHC == 9.8.4
 - GHC == 9.10.3
-- GHC == 9.12.2
+- GHC == 9.12.4
+- GHC == 9.14.1
 
 ghc-options:
 - -O0
@@ -48,7 +49,7 @@ library:
   source-dirs: src
   dependencies:
   - barbies >= 2.0.5 && < 2.2
-  - aeson >= 2.2.3 && < 2.3
+  - aeson >= 2.2.3 && < 2.4
   - bytestring >= 0.11.5.3 && < 0.13
   - deriving-aeson >= 0.2.9 && < 0.3
   - http-conduit >= 2.3.9.1 && < 2.4
@@ -58,8 +59,13 @@ library:
       dependencies:
       - crypton-x509-store < 1.6.12 # no 'cloexec'
     else:
-      dependencies:
-      - crypton < 1.1.0 # 'ram' / 'memory' mismatch
+      when:
+      - condition: impl(ghc < 9.12)
+        then:
+          dependencies:
+          - crypton < 1.1.0 # 'ram' / 'memory' mismatch
+        else:
+          dependencies: []
 
 executables:
   wled-json-demo:
