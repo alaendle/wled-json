@@ -77,7 +77,7 @@ executables:
     - -with-rtsopts=-N
     dependencies:
     - wled-json
-    - rhine >= 1.4.0.1 && < 1.7
+    - rhine >= 1.4.0.1 && < 1.9
     when:
     - condition: impl(ghc > 9.12)
       then:
