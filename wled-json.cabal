@@ -79,6 +79,10 @@ executable wled-json-demo
     , rhine >=1.4.0.1 && <1.7
     , wled-json
   default-language: Haskell2010
+  if impl(ghc > 9.12)
+    build-depends:
+        semialign <1.4
+  else
 
 executable wled-json-simple
   main-is: Main.hs
