@@ -3,7 +3,7 @@ packages:
 
 tests: True
 
-if impl (ghc >= 9.12)
+if impl (ghc >= 9.14)
   allow-newer:
     , automaton:base
     , monad-schedule:base
