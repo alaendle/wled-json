@@ -8,7 +8,11 @@ The project adheres to the [Haskell Package Versioning Policy](https://pvp.haske
 
 - Awesome upcoming features!
 
-## 0.1.0.3 - Restrict `crypton <1.1.0` - 2026-08-03
+## 0.1.0.4 - Unlash `crypton` - 2026-06-25
+
+- No longer restrict transient dependency `crypton`.
+
+## 0.1.0.3 - Restrict `crypton <1.1.0` - 2026-03-08
 
 - Restrict `crypton <1.1.0`.
 
