@@ -37,14 +37,24 @@ switchFlags :: Monad m => Double -> ClSF m cl Double StatePatch
 switchFlags frequency = arr (\t -> allFlags !! (floor (t * frequency) `mod` length allFlags)) where
   allFlags = ($ octocatSpec) <$> [bulgaria, belgium, cameroon, chad, france, guatemala, guinea, ireland, italy, ivoryCoast, mali, nigeria, peru]
 
+#if MIN_VERSION_rhine(1,7,0)
+animation :: (Monad m, TimeDomain (Time cl), Diff (Time cl) ~ Seconds Double) => ClSF m cl () StatePatch
+animation = sinceStart >>> arr getSeconds >-> proc time -> do
+#else
 animation :: (Monad m, TimeDomain (Time cl), Diff (Time cl) ~ Double) => ClSF m cl () StatePatch
 animation = sinceStart >-> proc time -> do
+#endif
   brightness <- brightnessSinus 0.1 -< time
   flag <- switchFlags 0.2 -< time
   returnA -< brightness <> flag
 
+#if MIN_VERSION_rhine(1,7,0)
+traverseLed :: (Monad m, TimeDomain (Time cl), Diff (Time cl) ~ Seconds Double) => ClSF m cl () StatePatch
+traverseLed = sinceStart >>> arr getSeconds >-> arr (\t -> (mempty :: StatePatch) { stateBri = Just 255, stateSeg = Just [segment (floor (t / 3.0)) (floor (t / 3.0) + 1 ) [255, 255, 255]]})
+#else
 traverseLed :: (Monad m, TimeDomain (Time cl), Diff (Time cl) ~ Double) => ClSF m cl () StatePatch
 traverseLed = sinceStart >-> arr (\t -> (mempty :: StatePatch) { stateBri = Just 255, stateSeg = Just [segment (floor (t / 3.0)) (floor (t / 3.0) + 1 ) [255, 255, 255]]})
+#endif
 
 main :: IO ()
 main = do

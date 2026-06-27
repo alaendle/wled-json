@@ -8,6 +8,10 @@ The project adheres to the [Haskell Package Versioning Policy](https://pvp.haske
 
 - Awesome upcoming features!
 
+## 0.1.0.5 - Unlash `rhine` - 2026-06-26
+
+- Support `rhine-1.8`.
+
 ## 0.1.0.4 - Unlash `crypton` - 2026-06-25
 
 - No longer restrict transient dependency `crypton`.

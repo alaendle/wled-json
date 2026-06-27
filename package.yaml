@@ -1,5 +1,5 @@
 name:                wled-json
-version:             0.1.0.4
+version:             0.1.0.5
 github:              "alaendle/wled-json"
 license:             BSD-3-Clause
 author:              "Andreas Ländle"
@@ -64,12 +64,12 @@ executables:
     - -with-rtsopts=-N
     dependencies:
     - wled-json
-    - rhine >= 1.4.0.1 && < 1.7
+    - rhine >= 1.4.0.1 && < 1.9
     when:
     - condition: impl(ghc > 9.12)
       then:
         dependencies:
-        - semialign < 1.4 # this is wrong for automaton-1.5 
+        - semialign < 1.4 # dirty hack to compile with ghc-9.14 until rhine supports ghc-9.14.
       else:
         dependencies: []
   wled-json-simple:
