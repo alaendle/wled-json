@@ -1,7 +1,7 @@
 
 {-|
 Module      : WLED.Pattern.Flags
-Copyright   : (c) Andreas Ländle, 2024-2025
+Copyright   : (c) Andreas Ländle, 2024-2026
 License     : BSD-3
 Stability   : experimental
 

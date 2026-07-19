@@ -1,12 +1,12 @@
 {-# LANGUAGE StandaloneKindSignatures #-}
 
 {-|
-Module      : WLED.Device
-Copyright   : (c) Andreas Ländle, 2024-2025
+Module      : WLED.LampSpec
+Copyright   : (c) Andreas Ländle, 2024-2026
 License     : BSD-3
 Stability   : experimental
 
-Represent the logical model fo the lamp.
+Represent the logical model of the lamp.
 -}
 
 module WLED.LampSpec (LampSpec(..)) where

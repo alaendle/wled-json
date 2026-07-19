@@ -10,8 +10,8 @@
 
 
 {-|
-Module      : WLED.Device
-Copyright   : (c) Andreas Ländle, 2024-2025
+Module      : WLED.Types
+Copyright   : (c) Andreas Ländle, 2024-2026
 License     : BSD-3
 Stability   : experimental
 
