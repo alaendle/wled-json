@@ -58,9 +58,11 @@ jobs:
         if: runner.os == 'Linux' && (matrix.ghc == '9.2.8' || matrix.ghc == '9.4.8')
         run: |
           SETTINGS_FILE="$(ghc --print-libdir)/settings"
-          if grep -q '\-fuse-ld=gold' "$SETTINGS_FILE"; then
+          if grep -q 'fuse-ld=gold' "$SETTINGS_FILE"; then
             sed -i 's/-fuse-ld=gold/-fuse-ld=bfd/g' "$SETTINGS_FILE"
+            sed -i 's/fuse-ld=gold/fuse-ld=bfd/g' "$SETTINGS_FILE"
             echo "Patched $SETTINGS_FILE to use bfd instead of gold"
+            cat "$SETTINGS_FILE" | grep -i fuse-ld
           else
             echo "No gold linker flag found in settings file"
           fi
