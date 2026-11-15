@@ -54,6 +54,12 @@ jobs:
           ghc-version: ${{ matrix.ghc }}
           cabal-version: ${{ matrix.cabal }}
 
+      - name: Set linker to ld.bfd for GHC 9.2/9.4 on Ubuntu
+        if: runner.os == 'Linux' && (matrix.ghc == '9.2.8' || matrix.ghc == '9.4.8')
+        run: |
+          echo "LD=ld.bfd" >> $GITHUB_ENV
+          echo "CABAL_CONFIGURE_OPTS=--with-ld=ld.bfd" >> $GITHUB_ENV
+
       - name: Configure
         run: |
           cabal configure --enable-tests --enable-benchmarks --enable-documentation --test-show-details=direct --write-ghc-environment-files=always
