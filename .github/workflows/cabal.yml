@@ -54,23 +54,20 @@ jobs:
           ghc-version: ${{ matrix.ghc }}
           cabal-version: ${{ matrix.cabal }}
 
+      # Ubuntu 26.04 no longer ships ld.gold, but the hsc2hs wrapper of the
+      # GHC 9.2/9.4 bindists hardcodes HSC2HS_EXTRA="--lflag=-fuse-ld=gold"
+      # (the GHC settings file itself is fine), so every .hsc file fails with
+      # "collect2: fatal error: cannot find 'ld'".
       - name: Set linker to ld.bfd for GHC 9.2/9.4 on Ubuntu
         if: runner.os == 'Linux' && (matrix.ghc == '9.2.8' || matrix.ghc == '9.4.8')
         run: |
-          SETTINGS_FILE="$(ghc --print-libdir)/settings"
-          echo "=== Settings file content ==="
-          cat "$SETTINGS_FILE"
-          echo "=== Searching for gold ==="
-          if grep -i 'gold' "$SETTINGS_FILE"; then
-            echo "Found gold reference, patching..."
-            sed -i 's/-fuse-ld=gold/-fuse-ld=bfd/g' "$SETTINGS_FILE"
-            sed -i 's/fuse-ld=gold/fuse-ld=bfd/g' "$SETTINGS_FILE"
-            sed -i 's/"gold"/"bfd"/g' "$SETTINGS_FILE"
-            echo "=== Patched settings file ==="
-            cat "$SETTINGS_FILE"
-          else
-            echo "No gold linker flag found in settings file"
-          fi
+          GHC_BIN_DIR="$(dirname "$(readlink -f "$(command -v ghc)")")"
+          FILES="$(grep -lI -- '-fuse-ld=gold' "$GHC_BIN_DIR"/* "$(ghc --print-libdir)/settings" || true)"
+          for f in $FILES; do
+            sed -i --follow-symlinks 's/-fuse-ld=gold/-fuse-ld=bfd/g' "$f"
+            echo "Patched $f:"
+            grep -H -- '-fuse-ld' "$f"
+          done
 
       - name: Configure
         run: |
